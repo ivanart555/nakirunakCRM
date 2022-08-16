@@ -23,6 +23,10 @@ public class Order {
     @Column(name = "order_name", unique = true)
     private String name;
 
+    public Order(String name) {
+        this.name = name;
+    }
+
     @Override
     public String toString() {
         return "Order{" +
