@@ -35,7 +35,7 @@ public class OrdersRestController {
             return ResponseEntity.created(uri).build();
         }
 
-        return ResponseEntity.unprocessableEntity().build();
+        return ResponseEntity.ok().build();
     }
 
     @PutMapping()
