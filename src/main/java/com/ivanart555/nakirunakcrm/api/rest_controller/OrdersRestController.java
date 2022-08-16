@@ -10,6 +10,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 import java.util.List;
+import java.util.Map;
 
 @CrossOrigin(origins = "*")
 @AllArgsConstructor
@@ -31,7 +32,8 @@ public class OrdersRestController {
     @PostMapping()
     public ResponseEntity<Object> create(@RequestParam Map<String, String> body) {
         //int id = orderService.save(order);
-        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(id).toUri();
+        //URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(id).toUri();
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(3).toUri();
         return ResponseEntity.created(uri).build();
     }
 
