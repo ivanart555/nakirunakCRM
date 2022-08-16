@@ -30,16 +30,9 @@ public class OrdersRestController {
     }
 
     @PostMapping()
-    public ResponseEntity<Object> create(@RequestParam Map<String, String> body) throws Exception {
-        String orderName = body.get("name");
-        URI uri = null;
-        if (orderName != null){
-            Order order = new Order();
-            int id = orderService.save(order);
-            uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(id).toUri();
-            throw new Exception();
-         }
-
+    public ResponseEntity<Object> create(@RequestBody Order order) {
+        int id = orderService.save(order);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(id).toUri();
         return ResponseEntity.created(uri).build();
     }
 

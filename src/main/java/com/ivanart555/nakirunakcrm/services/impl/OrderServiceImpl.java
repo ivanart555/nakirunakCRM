@@ -7,6 +7,8 @@ import com.ivanart555.nakirunakcrm.services.OrderService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -17,10 +19,16 @@ import java.util.List;
 public class OrderServiceImpl implements OrderService {
     private final OrderRepository orderRepository;
 
-
     @Override
     public List<Order> findAll() throws ServiceException {
         List<Order> orders = orderRepository.findAll();
+        log.info("All Orders received successfully.");
+        return orders;
+    }
+
+    @Override
+    public Page<Order> findAll(Pageable pageable) throws ServiceException {
+        Page<Order> orders = orderRepository.findAll(pageable);
         log.info("All Orders received successfully.");
         return orders;
     }
