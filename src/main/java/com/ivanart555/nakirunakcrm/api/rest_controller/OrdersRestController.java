@@ -28,10 +28,14 @@ public class OrdersRestController {
     }
 
     @PostMapping()
-    public ResponseEntity<Object> create(@RequestBody Order order) {
-        int id = orderService.save(order);
-        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(id).toUri();
-        return ResponseEntity.created(uri).build();
+    public ResponseEntity<Object> create(@RequestBody Order order) throws Exception {
+        if (order.getName() != null){
+            int id = orderService.save(order);
+            URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(id).toUri();
+            return ResponseEntity.created(uri).build();
+        }
+
+        throw new Exception();
     }
 
     @PutMapping()
