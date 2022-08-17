@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
-import java.util.Objects;
 
 @Entity
 @Getter
@@ -24,14 +23,17 @@ public class Order {
     @Column(name = "Timestamp")
     private LocalDateTime timestamp;
 
-    @Column(name = "DestinationID")
-    private Integer destinationId;
+    @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
+    @JoinColumn(name = "DestinationID")
+    private Destination destination;
 
-    @Column(name = "StatusID")
-    private Integer statusId;
+    @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
+    @JoinColumn(name = "OrderStatusID")
+    private OrderStatus orderStatus;
 
-    @Column(name = "CustomerID")
-    private Integer customerId;
+    @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.REFRESH})
+    @JoinColumn(name = "CustomerID")
+    private Customer customer;
 
     @Column(name = "Comment")
     private String comment;
@@ -39,29 +41,6 @@ public class Order {
     @Column(name = "CustomerComment")
     private String customerComment;
 
-    @Override
-    public String toString() {
-        return "Order{" +
-                "id=" + id +
-                ", timestamp=" + timestamp +
-                ", destinationId=" + destinationId +
-                ", statusId=" + statusId +
-                ", customerId=" + customerId +
-                ", comment='" + comment + '\'' +
-                ", customerComment='" + customerComment + '\'' +
-                '}';
-    }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Order order = (Order) o;
-        return id.equals(order.id) && timestamp.equals(order.timestamp) && destinationId.equals(order.destinationId) && statusId.equals(order.statusId) && customerId.equals(order.customerId);
-    }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, timestamp, destinationId, statusId, customerId);
-    }
 }
