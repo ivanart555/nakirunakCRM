@@ -17,6 +17,7 @@
         <tr>
             <th scope="col">Id</th>
             <th scope="col">Name</th>
+            <th scope="col">Date and time</th>
 
         </tr>
         </thead>
@@ -24,6 +25,7 @@
         <tr th:each="order : ${orderPage.content}">
             <td th:text="${order.id}">id</td>
             <td th:text="${order.name}">name</td>
+            <td th:text="${#temporals.format(order.timestamp, 'dd.MM.yyyy HH:mm')">timestamp</td>
         </tr>
         </tbody>
     </table>

@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -54,6 +55,7 @@ public class OrdersController {
     @PostMapping()
     public String create(@ModelAttribute("order") Order order)
             throws ServiceException {
+        order.setTimestamp(LocalDateTime.now());
 
         orderService.save(order);
         return REDIRECT_ORDERS;

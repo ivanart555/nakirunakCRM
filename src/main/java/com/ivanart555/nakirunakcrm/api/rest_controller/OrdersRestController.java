@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @AllArgsConstructor
@@ -28,14 +29,12 @@ public class OrdersRestController {
     }
 
     @PostMapping()
-    public ResponseEntity<Object> create(@RequestBody Order order) throws Exception {
-        if (order.getName() != null){
-            int id = orderService.save(order);
-            URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(id).toUri();
-            return ResponseEntity.created(uri).build();
-        }
+    public ResponseEntity<Object> create(@RequestBody Order order) {
+        order.setTimestamp(LocalDateTime.now());
 
-        return ResponseEntity.ok().build();
+        int id = orderService.save(order);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(id).toUri();
+        return ResponseEntity.created(uri).build();
     }
 
     @PutMapping()

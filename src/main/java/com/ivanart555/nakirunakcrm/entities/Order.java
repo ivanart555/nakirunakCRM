@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Entity
@@ -20,6 +21,9 @@ public class Order {
     @Column(name = "order_id")
     private Integer id;
 
+    @Column(name = "order_timestamp")
+    private LocalDateTime timestamp;
+
     @Column(name = "order_name", unique = true)
     private String name;
 
@@ -31,6 +35,7 @@ public class Order {
     public String toString() {
         return "Order{" +
                 "id=" + id +
+                ", timestamp=" + timestamp +
                 ", name='" + name + '\'' +
                 '}';
     }
@@ -40,11 +45,11 @@ public class Order {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Order order = (Order) o;
-        return id.equals(order.id) && name.equals(order.name);
+        return id.equals(order.id) && timestamp.equals(order.timestamp) && name.equals(order.name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name);
+        return Objects.hash(id, timestamp, name);
     }
 }
