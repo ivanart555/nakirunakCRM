@@ -14,29 +14,41 @@ import java.util.Objects;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "orders", schema = "public")
+@Table(name = "Orders", schema = "public")
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "order_id")
+    @Column(name = "OrderID")
     private Integer id;
 
-    @Column(name = "order_timestamp")
+    @Column(name = "Timestamp")
     private LocalDateTime timestamp;
 
-    @Column(name = "order_name", unique = true)
-    private String name;
+    @Column(name = "DestinationID")
+    private Integer destinationId;
 
-    public Order(String name) {
-        this.name = name;
-    }
+    @Column(name = "StatusID")
+    private Integer statusId;
+
+    @Column(name = "CustomerID")
+    private Integer customerId;
+
+    @Column(name = "Comment")
+    private String comment;
+
+    @Column(name = "CustomerComment")
+    private String customerComment;
 
     @Override
     public String toString() {
         return "Order{" +
                 "id=" + id +
                 ", timestamp=" + timestamp +
-                ", name='" + name + '\'' +
+                ", destinationId=" + destinationId +
+                ", statusId=" + statusId +
+                ", customerId=" + customerId +
+                ", comment='" + comment + '\'' +
+                ", customerComment='" + customerComment + '\'' +
                 '}';
     }
 
@@ -45,11 +57,11 @@ public class Order {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Order order = (Order) o;
-        return id.equals(order.id) && timestamp.equals(order.timestamp) && name.equals(order.name);
+        return id.equals(order.id) && timestamp.equals(order.timestamp) && destinationId.equals(order.destinationId) && statusId.equals(order.statusId) && customerId.equals(order.customerId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, timestamp, name);
+        return Objects.hash(id, timestamp, destinationId, statusId, customerId);
     }
 }
