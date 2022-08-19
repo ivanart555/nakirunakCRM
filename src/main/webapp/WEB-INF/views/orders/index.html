@@ -26,7 +26,8 @@
         <tr th:each="order : ${orderPage.content}">
             <td th:text="${order.id}">id</td>
             <td th:text="${#temporals.format(order.timestamp, 'dd.MM.yyyy HH:mm')}">timestamp</td>
-            <td th:text="${order.name}">name</td>
+            <td th:text="${order.customer.getLastName()} + ' ' + ${order.customer.getName()} + ' ' + ${order.customer.getPatronymic()}">customer</td>
+
         </tr>
         </tbody>
     </table>
