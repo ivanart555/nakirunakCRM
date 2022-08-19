@@ -13,14 +13,14 @@ import java.util.Objects;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "Destinations", schema = "public")
+@Table(name = "destinations", schema = "public")
 public class Destination {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "DestinationID")
+    @Column(name = "destination_id")
     private Integer id;
 
-    @Column(name = "Name")
+    @Column(name = "name")
     private String name;
 
     @Override

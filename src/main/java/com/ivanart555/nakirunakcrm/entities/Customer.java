@@ -13,26 +13,26 @@ import java.util.Objects;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "Customers", schema = "public")
+@Table(name = "customers", schema = "public")
 public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "CustomerID")
+    @Column(name = "customer_id")
     private Integer id;
 
-    @Column(name = "Name")
+    @Column(name = "name")
     private String name;
 
-    @Column(name = "LastName")
+    @Column(name = "last_name")
     private String lastName;
 
-    @Column(name = "Patronymic")
+    @Column(name = "patronymic")
     private String patronymic;
 
-    @Column(name = "PhoneNumber")
+    @Column(name = "phone_number")
     private String phoneNumber;
 
-    @Column(name = "Email")
+    @Column(name = "email")
     private String email;
 
     @Override

@@ -14,32 +14,32 @@ import java.util.Objects;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "Orders", schema = "public")
+@Table(name = "orders", schema = "public")
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "OrderID")
+    @Column(name = "order_id")
     private Integer id;
 
-    @Column(name = "Timestamp")
+    @Column(name = "timestamp")
     private LocalDateTime timestamp;
 
     @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
-    @JoinColumn(name = "DestinationID")
+    @JoinColumn(name = "destination_id")
     private Destination destination;
 
     @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
-    @JoinColumn(name = "OrderStatusID")
+    @JoinColumn(name = "order_status_id")
     private OrderStatus orderStatus;
 
     @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.REFRESH})
-    @JoinColumn(name = "CustomerID")
+    @JoinColumn(name = "customer_id")
     private Customer customer;
 
-    @Column(name = "Comment")
+    @Column(name = "comment")
     private String comment;
 
-    @Column(name = "CustomerComment")
+    @Column(name = "customer_comment")
     private String customerComment;
 
     @Override
