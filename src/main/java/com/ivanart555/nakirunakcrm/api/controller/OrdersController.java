@@ -23,7 +23,7 @@ import java.util.stream.IntStream;
 @RequestMapping("/")
 public class OrdersController {
     private static final String REDIRECT_ORDERS = "redirect:/orders";
-    private OrderService orderService;
+    private final OrderService orderService;
 
     @GetMapping()
     public String index(Model model,

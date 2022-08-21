@@ -42,7 +42,7 @@ public class OrderServiceImpl implements OrderService {
         } catch (EntityNotFoundException e) {
             log.warn("Order with id {} not found!", id);
         }
-        log.info("Lecturer with id {} received successfully.", id);
+        log.info("Order with id {} received successfully.", id);
 
         return order;
     }
