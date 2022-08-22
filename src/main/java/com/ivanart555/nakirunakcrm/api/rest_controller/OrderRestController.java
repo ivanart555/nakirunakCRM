@@ -14,6 +14,8 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.List;
 
 @AllArgsConstructor
@@ -39,7 +41,7 @@ public class OrderRestController {
     public ResponseEntity<Object> create(@RequestBody OrderDto orderDto) {
         Order order = convertToEntity(orderDto);
 
-        order.setTimestamp(LocalDateTime.now());
+        order.setTimestamp(ZonedDateTime.now(ZoneId.of("Europe/Minsk")).toLocalDateTime());
         order.setOrderStatus(orderStatusService.findByName("Новая"));
         order.setDestination(destinationService.findByName(orderDto.getDestination()));
         order.setComment("");

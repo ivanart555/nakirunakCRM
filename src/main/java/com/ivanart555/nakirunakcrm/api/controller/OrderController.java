@@ -13,6 +13,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -55,7 +57,7 @@ public class OrderController {
     @PostMapping()
     public String create(@ModelAttribute("order") Order order)
             throws ServiceException {
-        order.setTimestamp(LocalDateTime.now());
+        order.setTimestamp(ZonedDateTime.now(ZoneId.of("Europe/Minsk")).toLocalDateTime());
 
         orderService.save(order);
         return REDIRECT_ORDERS;
