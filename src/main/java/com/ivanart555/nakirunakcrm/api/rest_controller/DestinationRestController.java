@@ -1,7 +1,7 @@
 package com.ivanart555.nakirunakcrm.api.rest_controller;
 
-import com.ivanart555.nakirunakcrm.entities.Customer;
-import com.ivanart555.nakirunakcrm.services.CustomerService;
+import com.ivanart555.nakirunakcrm.entities.Destination;
+import com.ivanart555.nakirunakcrm.services.DestinationService;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
@@ -14,38 +14,38 @@ import java.util.List;
 
 @AllArgsConstructor
 @RestController
-@RequestMapping("/api/customers")
-public class CustomerRestController {
-    private final CustomerService customerService;
+@RequestMapping("/api/destinations")
+public class DestinationRestController {
+    private final DestinationService destinationService;
     private final ModelMapper modelMapper;
 
     @GetMapping
-    public List<Customer> findAll() {
-        return customerService.findAll();
+    public List<Destination> findAll() {
+        return destinationService.findAll();
     }
 
     @GetMapping("/{id}")
-    public Customer findById(@PathVariable("id") int id) {
-        return customerService.findById(id);
+    public Destination findById(@PathVariable("id") int id) {
+        return destinationService.findById(id);
     }
 
     @PostMapping()
-    public ResponseEntity<Object> create(@RequestBody Customer customer) {
-        int id = customerService.save(customer);
+    public ResponseEntity<Object> create(@RequestBody Destination destination) {
+        int id = destinationService.save(destination);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(id).toUri();
         return ResponseEntity.created(uri).build();
     }
 
     @PutMapping()
     @ResponseStatus(HttpStatus.OK)
-    public Customer update(@RequestBody Customer customer) {
-        customerService.save(customer);
-        return customer;
+    public Destination update(@RequestBody Destination destination) {
+        destinationService.save(destination);
+        return destination;
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Object> delete(@PathVariable("id") int id) {
-        customerService.deleteById(id);
+        destinationService.deleteById(id);
         return ResponseEntity.noContent().build();
     }
 }

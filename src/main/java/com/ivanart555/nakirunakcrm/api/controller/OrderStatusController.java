@@ -1,8 +1,9 @@
 package com.ivanart555.nakirunakcrm.api.controller;
 
 import com.ivanart555.nakirunakcrm.entities.Destination;
+import com.ivanart555.nakirunakcrm.entities.OrderStatus;
 import com.ivanart555.nakirunakcrm.exception.ServiceException;
-import com.ivanart555.nakirunakcrm.services.DestinationService;
+import com.ivanart555.nakirunakcrm.services.OrderStatusService;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -19,10 +20,10 @@ import java.util.stream.IntStream;
 
 @AllArgsConstructor
 @Controller
-@RequestMapping("/destinations")
-public class DestinationController {
-    private static final String REDIRECT_DESTINATIONS = "redirect:/destinations";
-    private final DestinationService destinationService;
+@RequestMapping("/statuses")
+public class OrderStatusController {
+    private static final String REDIRECT_STATUSES = "redirect:/statuses";
+    private final OrderStatusService orderStatusService;
 
     @GetMapping()
     public String index(Model model,
@@ -32,15 +33,15 @@ public class DestinationController {
         int pageSize = size.orElse(15);
 
         Pageable sortedById = PageRequest.of(currentPage - 1, pageSize, Sort.by("id"));
-        Page<Destination> destinationPage = destinationService.findAll(sortedById);
+        Page<OrderStatus> orderStatusPage = orderStatusService.findAll(sortedById);
 
-        model.addAttribute("destinationPage", destinationPage);
+        model.addAttribute("orderStatusPage", orderStatusPage);
         model.addAttribute("currentPage", currentPage);
-        model.addAttribute("totalPages", destinationPage.getTotalPages());
+        model.addAttribute("totalPages", orderStatusPage.getTotalPages());
 
-        model.addAttribute("destination", new Destination());
+        model.addAttribute("orderStatus", new OrderStatus());
 
-        int totalPages = destinationPage.getTotalPages();
+        int totalPages = orderStatusPage.getTotalPages();
         if (totalPages > 0) {
             List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
                     .boxed()
@@ -48,28 +49,28 @@ public class DestinationController {
             model.addAttribute("pageNumbers", pageNumbers);
         }
 
-        return "destinations/index";
+        return "statuses/index";
     }
 
     @PostMapping()
-    public String create(@ModelAttribute("destination") Destination destination)
+    public String create(@ModelAttribute("orderStatus") OrderStatus orderStatus)
             throws ServiceException {
 
-        destinationService.save(destination);
-        return REDIRECT_DESTINATIONS;
+        orderStatusService.save(orderStatus);
+        return REDIRECT_STATUSES;
     }
 
     @PatchMapping("/edit")
-    public String update(@ModelAttribute("destination") Destination destination)
+    public String update(@ModelAttribute("orderStatus") OrderStatus orderStatus)
             throws ServiceException {
 
-        destinationService.save(destination);
-        return REDIRECT_DESTINATIONS;
+        orderStatusService.save(orderStatus);
+        return REDIRECT_STATUSES;
     }
 
     @DeleteMapping("/delete/{id}")
     public String delete(@PathVariable("id") int id) throws ServiceException {
-        destinationService.deleteById(id);
-        return REDIRECT_DESTINATIONS;
+        orderStatusService.deleteById(id);
+        return REDIRECT_STATUSES;
     }
 }

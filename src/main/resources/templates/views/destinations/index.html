@@ -14,50 +14,41 @@
 <nav aria-label="Navigation bar" th:replace="layouts :: navbar"></nav>
 
 <div class="container my-2">
-    <h1>Кліенты</h1>
+    <h1>Накірункі</h1>
 
     <table aria-label="List of all customers" border="1" class="table table-striped table-responsive-md">
         <thead>
         <tr>
             <th scope="col">Нумар</th>
-            <th scope="col">Імя</th>
-            <th scope="col">Прозвішча</th>
-            <th scope="col">Імя па бацьку</th>
-            <th scope="col">Тэлефон</th>
-            <th scope="col">Email</th>
+            <th scope="col">Накірунак</th>
 
         </tr>
         </thead>
         <tbody>
-        <tr th:each="customer : ${customerPage.content}">
-            <td th:text="${customer.getId()}">id</td>
-            <td th:text="${customer.getName()}">name</td>
-            <td th:text="${customer.getLastName()}">lastName</td>
-            <td th:text="${customer.getPatronymic()}">patronymic</td>
-            <td th:text="${customer.getPhoneNumber()}">phone</td>
-            <td th:text="${customer.getEmail()}">email</td>
-
+        <tr th:each="destionation : ${destinationPage.content}">
+            <td th:text="${destionation.getId()}">id</td>
+            <td th:text="${destionation.getName()}">name</td>
         </tr>
         </tbody>
     </table>
 
     <nav aria-label="Page navigation" class="paging">
         <ul class="pagination justify-content-center" th:if="${totalPages > 1}">
-            <li class="page-item" th:classappend="${!customerPage.hasPrevious()? 'disabled' : ''}">
-                <a class="page-link" th:href="@{/customers(size=${customerPage.size}, page=${currentPage - 1})}"
+            <li class="page-item" th:classappend="${!destinationPage.hasPrevious()? 'disabled' : ''}">
+                <a class="page-link" th:href="@{/destionations(size=${destinationPage.size}, page=${currentPage - 1})}"
                    tabindex="-1">Previous</a>
             </li>
 
             <th:block th:each="number : ${pageNumbers}">
                 <li class="page-item" th:classappend="${number == currentPage? 'active' : ''}">
-                    <a class="page-link" th:href="@{/customers(size=${customerPage.size}, page=${number})}"
+                    <a class="page-link" th:href="@{/destionations(size=${destinationPage.size}, page=${number})}"
                        th:text="${number}"></a>
                 </li>
 
             </th:block>
 
-            <li class="page-item" th:classappend="${!customerPage.hasNext()? 'disabled' : ''}">
-                <a class="page-link" th:href="@{/customers(size=${customerPage.size}, page=${currentPage + 1})}">Next</a>
+            <li class="page-item" th:classappend="${!destinationPage.hasNext()? 'disabled' : ''}">
+                <a class="page-link" th:href="@{/destionations(size=${destinationPage.size}, page=${currentPage + 1})}">Next</a>
             </li>
         </ul>
     </nav>
