@@ -1,7 +1,6 @@
 package com.ivanart555.nakirunakcrm.services;
 
 import com.ivanart555.nakirunakcrm.entities.Customer;
-import com.ivanart555.nakirunakcrm.entities.Order;
 import com.ivanart555.nakirunakcrm.exception.ServiceException;
 import com.ivanart555.nakirunakcrm.services.generic.GenericService;
 import org.springframework.data.domain.Page;
