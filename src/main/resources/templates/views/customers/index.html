@@ -32,9 +32,10 @@
         <tr th:each="customer : ${customerPage.content}">
             <td th:text="${customer.getId()}">id</td>
             <td th:text="${customer.getName()}">name</td>
-            <td th:text="${customer.getName()}">name</td>
-            <td th:text="${customer.getPhoneNumber()}">id</td>
-            <td th:text="${order.getComment()}">id</td>
+            <td th:text="${customer.getLastName()}">lastName</td>
+            <td th:text="${customer.getPatronymic()}">patronymic</td>
+            <td th:text="${order.getPhoneNumber()}">phone</td>
+            <td th:text="${order.getEmail()}">email</td>
 
         </tr>
         </tbody>
