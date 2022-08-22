@@ -1,8 +1,8 @@
 package com.ivanart555.nakirunakcrm.api.controller;
 
-import com.ivanart555.nakirunakcrm.entities.Customer;
+import com.ivanart555.nakirunakcrm.entities.Order;
 import com.ivanart555.nakirunakcrm.exception.ServiceException;
-import com.ivanart555.nakirunakcrm.services.CustomerService;
+import com.ivanart555.nakirunakcrm.services.OrderService;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -19,10 +20,10 @@ import java.util.stream.IntStream;
 
 @AllArgsConstructor
 @Controller
-@RequestMapping("/customers")
-public class CustomersController {
-    private static final String REDIRECT_CUSTOMERS = "redirect:/customers";
-    private final CustomerService customerService;
+@RequestMapping("/")
+public class OrderController {
+    private static final String REDIRECT_ORDERS = "redirect:/orders";
+    private final OrderService orderService;
 
     @GetMapping()
     public String index(Model model,
@@ -32,15 +33,15 @@ public class CustomersController {
         int pageSize = size.orElse(15);
 
         Pageable sortedById = PageRequest.of(currentPage - 1, pageSize, Sort.by("id"));
-        Page<Customer> customerPage = customerService.findAll(sortedById);
+        Page<Order> orderPage = orderService.findAll(sortedById);
 
-        model.addAttribute("customerPage", customerPage);
+        model.addAttribute("orderPage", orderPage);
         model.addAttribute("currentPage", currentPage);
-        model.addAttribute("totalPages", customerPage.getTotalPages());
+        model.addAttribute("totalPages", orderPage.getTotalPages());
 
-        model.addAttribute("customer", new Customer());
+        model.addAttribute("order", new Order());
 
-        int totalPages = customerPage.getTotalPages();
+        int totalPages = orderPage.getTotalPages();
         if (totalPages > 0) {
             List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
                     .boxed()
@@ -48,28 +49,29 @@ public class CustomersController {
             model.addAttribute("pageNumbers", pageNumbers);
         }
 
-        return "customers/index";
+        return "orders/index";
     }
 
     @PostMapping()
-    public String create(@ModelAttribute("customer") Customer customer)
+    public String create(@ModelAttribute("order") Order order)
             throws ServiceException {
+        order.setTimestamp(LocalDateTime.now());
 
-        customerService.save(customer);
-        return REDIRECT_CUSTOMERS;
+        orderService.save(order);
+        return REDIRECT_ORDERS;
     }
 
     @PatchMapping("/edit")
-    public String update(@ModelAttribute("customer") Customer customer)
+    public String update(@ModelAttribute("order") Order order)
             throws ServiceException {
 
-        customerService.save(customer);
-        return REDIRECT_CUSTOMERS;
+        orderService.save(order);
+        return REDIRECT_ORDERS;
     }
 
     @DeleteMapping("/delete/{id}")
     public String delete(@PathVariable("id") int id) throws ServiceException {
-        customerService.deleteById(id);
-        return REDIRECT_CUSTOMERS;
+        orderService.deleteById(id);
+        return REDIRECT_ORDERS;
     }
 }

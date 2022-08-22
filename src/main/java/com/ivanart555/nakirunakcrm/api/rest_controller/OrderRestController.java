@@ -19,7 +19,7 @@ import java.util.List;
 @AllArgsConstructor
 @RestController
 @RequestMapping("/api/orders")
-public class OrdersRestController {
+public class OrderRestController {
     private final OrderService orderService;
     private final OrderStatusService orderStatusService;
     private final DestinationService destinationService;
