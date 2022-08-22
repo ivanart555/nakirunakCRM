@@ -35,7 +35,7 @@
         <tr th:each="order : ${orderPage.content}">
             <td th:text="${order.getId()}">id</td>
             <td th:text="${#temporals.format(order.getTimestamp(), 'dd.MM.yyyy HH:mm')}">timestamp</td>
-            <td th:text="${order.customer?.getLastName()} + ' ' + ${order.customer.getName()} + ' ' + ${order.customer?.getPatronymic()}">customer</td>
+            <td th:text="${order.customer.getLastName()} ?: '' + ' ' + ${order.customer.getName()} + ' ' + ${order.customer?.getPatronymic()} ?: ''">customer</td>
             <td th:text="${order.customer.getPhoneNumber()}">id</td>
             <td th:text="${order.destination.getName()}">id</td>
             <td th:text="${order.orderStatus.getName()}">id</td>
