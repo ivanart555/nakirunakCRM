@@ -1,6 +1,5 @@
 package com.ivanart555.nakirunakcrm.api.controller;
 
-import com.ivanart555.nakirunakcrm.entities.Destination;
 import com.ivanart555.nakirunakcrm.entities.OrderStatus;
 import com.ivanart555.nakirunakcrm.exception.ServiceException;
 import com.ivanart555.nakirunakcrm.services.OrderStatusService;

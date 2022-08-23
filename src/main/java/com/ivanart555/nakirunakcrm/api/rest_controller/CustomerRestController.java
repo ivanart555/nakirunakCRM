@@ -3,7 +3,6 @@ package com.ivanart555.nakirunakcrm.api.rest_controller;
 import com.ivanart555.nakirunakcrm.entities.Customer;
 import com.ivanart555.nakirunakcrm.services.CustomerService;
 import lombok.AllArgsConstructor;
-import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,7 +16,6 @@ import java.util.List;
 @RequestMapping("/api/customers")
 public class CustomerRestController {
     private final CustomerService customerService;
-    private final ModelMapper modelMapper;
 
     @GetMapping
     public List<Customer> findAll() {
