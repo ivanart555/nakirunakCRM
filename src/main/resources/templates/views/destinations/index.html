@@ -17,8 +17,7 @@
 <div class="container my-2">
     <h1>Накірункі</h1>
 
-    <table aria-label="List of all customers" border="1" class="table table-bordered">
-<!--        <table aria-label="List of all customers" border="1" class="table table-striped table-responsive-md">-->
+    <table aria-label="List of all destinations" border="1" class="table table-striped table-responsive-md">
         <thead>
         <tr>
             <th scope="col">Нумар</th>
@@ -26,7 +25,7 @@
             <th scope="col">
                 <div class="parent position-relative">
                     <button type="button" class="btn btn-success btn-sm position-absolute top-0 end-0"
-                            data-bs-toggle="modal" data-bs-target="#addModal">Add
+                            data-bs-toggle="modal" data-bs-target="#addModal">Дадаць
                     </button>
                 </div>
                 Дзеянні
@@ -40,11 +39,11 @@
             <td th:text="${destination.getName()}">name</td>
             <td>
                 <button type="button" class="btn btn-outline-secondary btn-sm" data-bs-toggle="modal"
-                        th:attr="data-bs-target='#modalUpdate'+${destination.id}">Edit
+                        th:attr="data-bs-target='#modalUpdate'+${destination.id}">Рэдагаваць
                 </button>
 
                 <button type="button" class="btn btn-outline-danger btn-sm" data-bs-toggle="modal"
-                        th:attr="data-bs-target='#modalDelete'+${destination.id}">Delete
+                        th:attr="data-bs-target='#modalDelete'+${destination.id}">Выдаліць
                 </button>
 
                 <div class="modal fade text-body" th:attr="id='modalUpdate'+${destination.id}" tabindex="-1"

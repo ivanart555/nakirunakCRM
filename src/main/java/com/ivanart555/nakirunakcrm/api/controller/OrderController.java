@@ -1,6 +1,7 @@
 package com.ivanart555.nakirunakcrm.api.controller;
 
 import com.ivanart555.nakirunakcrm.entities.Order;
+import com.ivanart555.nakirunakcrm.entities.dto.OrderDto;
 import com.ivanart555.nakirunakcrm.exception.ServiceException;
 import com.ivanart555.nakirunakcrm.services.OrderService;
 import lombok.AllArgsConstructor;
@@ -40,7 +41,7 @@ public class OrderController {
         model.addAttribute("currentPage", currentPage);
         model.addAttribute("totalPages", orderPage.getTotalPages());
 
-        model.addAttribute("order", new Order());
+        model.addAttribute("orderDto", new OrderDto());
 
         int totalPages = orderPage.getTotalPages();
         if (totalPages > 0) {
