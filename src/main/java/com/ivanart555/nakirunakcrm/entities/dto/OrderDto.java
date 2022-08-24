@@ -5,7 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Data
@@ -25,8 +24,10 @@ public class OrderDto {
     private String customerPhoneNumber;
     @NotNull
     private Integer destinationId;
-    private String destination;
+    private String destinationName;
     private String customerComment;
     private String comment;
+    @NotNull
     private Integer orderStatusId;
+    private String orderStatusName;
 }

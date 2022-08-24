@@ -3,9 +3,9 @@
 <head>
     <title>Nakirunak CRM</title>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous"/>
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css"
+          integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" rel="stylesheet"/>
 
     <title>Nakirunak CRM</title>
 </head>
@@ -29,8 +29,8 @@
             <th scope="col">Каментар</th>
             <th scope="col">
                 <div class="parent position-relative">
-                    <button type="button" class="btn btn-success btn-sm position-absolute top-0 end-0"
-                            data-bs-toggle="modal" data-bs-target="#addModal">Дадаць
+                    <button class="btn btn-success btn-sm position-absolute top-0 end-0" data-bs-target="#addModal"
+                            data-bs-toggle="modal" type="button">Дадаць
                     </button>
                 </div>
                 Дзеянні
@@ -40,97 +40,117 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="order : ${orderPage.content}">
-            <td th:text="${order.getId()}">id</td>
-            <td th:text="${#temporals.format(order.getTimestamp(), 'dd.MM.yyyy HH:mm')}">timestamp</td>
-            <td th:text="${order.customer.getLastName()  + ' ' + order.customer.getName() + ' ' + order.customer.getPatronymic()}">customer</td>
-            <td th:text="${order.customer.getPhoneNumber()}">id</td>
-            <td th:text="${order.destination.getName()}">id</td>
-            <td th:text="${order.orderStatus.getName()}">id</td>
-            <td th:text="${order.getCustomerComment()}">id</td>
-            <td th:text="${order.getComment()}">id</td>
+        <tr th:each="orderDto : ${orderDtoPage.content}">
+            <td th:text="${orderDto.getId()}">id</td>
+            <td th:text="${#temporals.format(orderDto.getTimestamp(), 'dd.MM.yyyy HH:mm')}">timestamp</td>
+            <td th:text="${orderDto.getCustomerLastName()  + ' ' + orderDto.getCustomerName() + ' ' + orderDto.getCustomerPatronymic()}">
+                customer
+            </td>
+            <td th:text="${orderDto.getCustomerPhoneNumber()}">phone</td>
+            <td th:text="${orderDto.getDestinationName()}">destination</td>
+            <td th:text="${orderDto.getOrderStatusName()}">status</td>
+            <td th:text="${orderDto.getCustomerComment()}">customerComment</td>
+            <td th:text="${orderDto.getComment()}">comment</td>
             <td>
-                <button type="button" class="btn btn-outline-secondary btn-sm" data-bs-toggle="modal"
-                        th:attr="data-bs-target='#modalUpdate'+${orderDto.id}">Рэдагаваць
+                <button class="btn btn-outline-secondary btn-sm" data-bs-toggle="modal" th:attr="data-bs-target='#modalUpdate'+${orderDto.id}"
+                        type="button">Рэдагаваць
                 </button>
 
-                <button type="button" class="btn btn-outline-danger btn-sm" data-bs-toggle="modal"
-                        th:attr="data-bs-target='#modalDelete'+${orderDto.id}">Выдаліць
+                <button class="btn btn-outline-danger btn-sm" data-bs-toggle="modal" th:attr="data-bs-target='#modalDelete'+${orderDto.id}"
+                        type="button">Выдаліць
                 </button>
 
-                <div class="modal fade text-body" th:attr="id='modalUpdate'+${orderDto.id}" tabindex="-1"
-                     aria-labelledby="modalUpdate" aria-hidden="true">
+                <div aria-hidden="true" aria-labelledby="modalUpdate" class="modal fade text-body"
+                     tabindex="-1" th:attr="id='modalUpdate'+${orderDto.id}">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h5 class="modal-title" id="updateModalLabel">Рэдагаваць замову</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Close"></button>
+                                <button aria-label="Close" class="btn-close" data-bs-dismiss="modal"
+                                        type="button"></button>
                             </div>
                             <div class="modal-body">
-                                <form th:method="PATCH" th:action="@{/edit}"
-                                      th:object="${orderDto}" th:attr="id=${orderDto.id}">
+                                <form th:action="@{/edit}" th:attr="id=${orderDto.id}"
+                                      th:method="PATCH" th:object="${orderDto}">
                                     <div class="mb-3">
-                                        <input type="hidden" class="form-control" id="id" name="id" th:value="*{id}">
-                                        <label for="timestamp" class="form-label">Дата і час:</label>
-                                        <input type="datetime-local" class="form-control"
-                                               th:attr="id='timestamp'+${orderDto.id}" name="timestamp"
-                                               th:value="*{timestamp}"/>
-                                        <br>
+                                        <input class="form-control" id="id" name="id" th:value="*{id}" type="hidden">
 
-                                        <label for="customerId" class="form-label">Замоўнік: </label>
-                                        <select class="form-select" id="customerId" th:field="*{customerId}">
-                                            <option th:if="*{customerId} == null" value="" selected>Абярыце
-                                                замоўніка для Замовы
+                                        <label class="form-label" for="orderStatusId">Статус: </label>
+                                        <select class="form-select" id="orderStatusId" th:field="*{orderStatusId}">
+                                            <option selected th:if="*{orderStatusId} == null" value="">Абярыце статус
                                             </option>
-                                            <option th:unless="*{customerId} == null" th:value="*{customerId}"
-                                                    th:utext="*{courseName}" selected></option>
-                                            <option th:each="customers : ${customers}" th:value="${customer.getId()}"
-                                                    th:utext="${customer.getLastName()  + ' ' + customer.getName() + ' ' + customer.getPatronymic()}"/>
+                                            <option selected th:unless="*{orderStatusId} == null"
+                                                    th:utext="*{orderStatusName}"
+                                                    th:value="*{orderStatusId}"></option>
+                                            <option th:each="status : ${orderStatuses}"
+                                                    th:if="${status.getId()} == *{orderStatusId}"
+                                                    th:utext="--current--"
+                                                    th:value="${status.getId()}"/>
+                                            <option th:each="status : ${orderStatuses}"
+                                                    th:unless="${status.getId()} == *{orderStatusId}"
+                                                    th:utext="${status.getName()}"
+                                                    th:value="${status.getId()}"/>
                                         </select>
                                         <br>
-<!--                                        <label for="lecturerId" class="form-label">Lecturer: </label>-->
-<!--                                        <select class="form-select" id="lecturerId" th:field="*{lecturerId}">-->
-<!--                                            <option th:if="*{lecturerId} == null" value="" selected>Select-->
-<!--                                                lecturer-->
-<!--                                            </option>-->
-<!--                                            <option th:unless="*{lecturerId} == null" th:value="*{lecturerId}"-->
-<!--                                                    th:utext="*{lecturerFirstName} +' '+ *{lecturerLastName}"-->
-<!--                                                    selected></option>-->
-<!--                                            <option th:each="lecturer : ${lecturers}"-->
-<!--                                                    th:value="${lecturer.getId()}"-->
-<!--                                                    th:utext="${lecturer.getFirstName()} +' '+ ${lecturer.getLastName()}"/>-->
-<!--                                        </select>-->
-<!--                                        <br>-->
-<!--                                        <label for="roomId" class="form-label">Classroom: </label>-->
-<!--                                        <select class="form-select" id="roomId" th:field="*{roomId}">-->
-<!--                                            <option th:if="*{roomId} == null" value="" selected>Select-->
-<!--                                                classroom-->
-<!--                                            </option>-->
-<!--                                            <option th:unless="*{roomId} == null" th:value="*{roomId}"-->
-<!--                                                    th:utext="*{roomName}" selected></option>-->
-<!--                                            <option th:each="classroom : ${classrooms}"-->
-<!--                                                    th:value="${classroom.getId()}"-->
-<!--                                                    th:utext="${classroom.getName()}"/>-->
-<!--                                        </select>-->
-<!--                                        <br>-->
-<!--                                        <label for="groupId" class="form-label">Group: </label>-->
-<!--                                        <select class="form-select" id="groupId" th:field="*{groupId}">-->
-<!--                                            <option th:if="*{groupId} == null" value="" selected>Select-->
-<!--                                                group-->
-<!--                                            </option>-->
-<!--                                            <option th:unless="*{groupId} == null" th:value="*{groupId}"-->
-<!--                                                    th:utext="*{groupName}" selected></option>-->
-<!--                                            <option th:each="group : ${groups}" th:value="${group.getId()}"-->
-<!--                                                    th:utext="${group.getName()}"/>-->
-<!--                                        </select>-->
+
+                                        <label class="form-label" for="timestamp">Дата і час:</label>
+                                        <input class="form-control" id="timestamp" name="timestamp"
+                                               th:attr="id='timestamp'+${orderDto.id}" th:value="*{timestamp}"
+                                               type="datetime-local"/>
+                                        <br>
+
+                                        <label class="form-label" for="customerId">Замоўнік: </label>
+                                        <select class="form-select" id="customerId" th:field="*{customerId}">
+                                            <option selected th:if="*{customerId} == null" value="">Абярыце
+                                                замоўніка для Замовы
+                                            </option>
+                                            <option selected th:unless="*{customerId} == null"
+                                                    th:utext="*{customerLastName}  + ' ' + *{customerName} + ' ' + *{customerPatronymic} + ' ; ' + *{customerPhoneNumber}"
+                                                    th:value="*{customerId}"></option>
+                                            <option th:each="customer : ${customers}"
+                                                    th:if="${customer.getId()} == *{customerId}"
+                                                    th:utext="--current--"
+                                                    th:value="${customer.getId()}"/>
+                                            <option th:each="customer : ${customers}"
+                                                    th:unless="${customer.getId()} == *{customerId}"
+                                                    th:utext="${customer.getLastName()}  + ' ' + ${customer.getName()} + ' '
+                                            + ${customer.getPatronymic()} + ' ; ' + ${customer.getPhoneNumber()}"
+                                                    th:value="${customer.getId()}"/>
+                                        </select>
+                                        <br>
+
+                                        <label class="form-label" for="destinationId">Накірунак: </label>
+                                        <select class="form-select" id="destinationId" th:field="*{destinationId}">
+                                            <option selected th:if="*{destinationId} == null" value="">Абярыце накірунак
+                                            </option>
+                                            <option selected th:unless="*{destinationId} == null"
+                                                    th:utext="*{destinationName}"
+                                                    th:value="*{destinationId}"></option>
+                                            <option th:each="destination : ${destinations}"
+                                                    th:if="${destination.getId()} == *{destinationId}"
+                                                    th:utext="--current--"
+                                                    th:value="${destination.getId()}"
+                                            />
+                                            <option th:each="destination : ${destinations}"
+                                                    th:unless="${destination.getId()} == *{destinationId}"
+                                                    th:utext="${destination.getName()}"
+                                                    th:value="${destination.getId()}"/>
+                                        </select>
+                                        <br>
+
+                                        <label class="form-label" for="customerComment">Каментар замоўніка:</label>
+                                        <textarea class="form-control" id="customerComment" rows="3" th:text="*{customerComment}"></textarea>
+                                        <br>
+
+                                        <label class="form-label" for="comment">Каментар:</label>
+                                        <textarea class="form-control" id="comment" rows="3" th:text="*{comment}"></textarea>
 
                                     </div>
 
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close
+                                        <button class="btn btn-secondary" data-bs-dismiss="modal" type="button">Close
                                         </button>
-                                        <button type="submit" class="btn btn-success">Update lesson</button>
+                                        <button class="btn btn-success" type="submit">Update lesson</button>
                                     </div>
                                 </form>
 
@@ -139,36 +159,36 @@
                     </div>
                 </div>
 
-<!--                <div class="modal fade text-body" th:attr="id='modalDelete'+${lessonDto.id}" tabindex="-1"-->
-<!--                     aria-labelledby="modalDelete" aria-hidden="true">-->
-<!--                    <div class="modal-dialog">-->
-<!--                        <div class="modal-content">-->
-<!--                            <div class="modal-header">-->
-<!--                                <h5 class="modal-title" id="exampleModalLabel">Warning</h5>-->
-<!--                                <button type="button" class="btn-close" data-bs-dismiss="modal"-->
-<!--                                        aria-label="Close"></button>-->
-<!--                            </div>-->
-<!--                            <div class="modal-body">-->
+                <!--                <div class="modal fade text-body" th:attr="id='modalDelete'+${lessonDto.id}" tabindex="-1"-->
+                <!--                     aria-labelledby="modalDelete" aria-hidden="true">-->
+                <!--                    <div class="modal-dialog">-->
+                <!--                        <div class="modal-content">-->
+                <!--                            <div class="modal-header">-->
+                <!--                                <h5 class="modal-title" id="exampleModalLabel">Warning</h5>-->
+                <!--                                <button type="button" class="btn-close" data-bs-dismiss="modal"-->
+                <!--                                        aria-label="Close"></button>-->
+                <!--                            </div>-->
+                <!--                            <div class="modal-body">-->
 
-<!--                                <form class="form-horizontal"-->
-<!--                                      th:action="@{/lessons/delete/{id}(id=${lessonDto.id})}" th:method="DELETE">-->
-<!--                                    <input id="id" name="id" type="hidden" th:value="${lessonDto.id}"/>-->
-<!--                                    <div class="form-group">-->
-<!--                                        <div class="text-nowrap bd-highlight">-->
-<!--                                            <p-->
-<!--                                                    th:text="'Are you sure you want to delete lesson:' + ' ' + ${lessonDto.id} + ' ' + '?'"></p>-->
-<!--                                        </div>-->
-<!--                                    </div>-->
-<!--                                    <div class="modal-footer">-->
-<!--                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close-->
-<!--                                        </button>-->
-<!--                                        <button type="submit" class="btn btn-danger">Delete lesson</button>-->
-<!--                                    </div>-->
-<!--                                </form>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
+                <!--                                <form class="form-horizontal"-->
+                <!--                                      th:action="@{/lessons/delete/{id}(id=${lessonDto.id})}" th:method="DELETE">-->
+                <!--                                    <input id="id" name="id" type="hidden" th:value="${lessonDto.id}"/>-->
+                <!--                                    <div class="form-group">-->
+                <!--                                        <div class="text-nowrap bd-highlight">-->
+                <!--                                            <p-->
+                <!--                                                    th:text="'Are you sure you want to delete lesson:' + ' ' + ${lessonDto.id} + ' ' + '?'"></p>-->
+                <!--                                        </div>-->
+                <!--                                    </div>-->
+                <!--                                    <div class="modal-footer">-->
+                <!--                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close-->
+                <!--                                        </button>-->
+                <!--                                        <button type="submit" class="btn btn-danger">Delete lesson</button>-->
+                <!--                                    </div>-->
+                <!--                                </form>-->
+                <!--                            </div>-->
+                <!--                        </div>-->
+                <!--                    </div>-->
+                <!--                </div>-->
             </td>
 
         </tr>
@@ -177,20 +197,20 @@
 
     <nav aria-label="Page navigation" class="paging">
         <ul class="pagination justify-content-center" th:if="${totalPages > 1}">
-            <li class="page-item" th:classappend="${!orderPage.hasPrevious()? 'disabled' : ''}">
-                <a class="page-link" th:href="@{/orders(size=${orderPage.size}, page=${currentPage - 1})}"
-                   tabindex="-1">Previous</a>
+            <li class="page-item" th:classappend="${!orderDtoPage.hasPrevious()? 'disabled' : ''}">
+                <a class="page-link" tabindex="-1"
+                   th:href="@{/orders(size=${orderDtoPage.size}, page=${currentPage - 1})}">Previous</a>
             </li>
 
             <th:block th:each="number : ${pageNumbers}">
                 <li class="page-item" th:classappend="${number == currentPage? 'active' : ''}">
-                    <a class="page-link" th:href="@{/orders(size=${orderPage.size}, page=${number})}"
+                    <a class="page-link" th:href="@{/orders(size=${orderDtoPage.size}, page=${number})}"
                        th:text="${number}"></a>
                 </li>
 
             </th:block>
 
-            <li class="page-item" th:classappend="${!orderPage.hasNext()? 'disabled' : ''}">
+            <li class="page-item" th:classappend="${!orderDtoPage.hasNext()? 'disabled' : ''}">
                 <a class="page-link" th:href="@{/orders(size=${groupPage.size}, page=${currentPage + 1})}">Next</a>
             </li>
         </ul>
@@ -198,9 +218,9 @@
 
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
+<script crossorigin="anonymous"
         integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
-        crossorigin="anonymous"></script>
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
 </html>

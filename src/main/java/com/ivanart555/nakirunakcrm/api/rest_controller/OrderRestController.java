@@ -1,12 +1,12 @@
 package com.ivanart555.nakirunakcrm.api.rest_controller;
 
+import com.ivanart555.nakirunakcrm.api.mapper.OrderMapper;
 import com.ivanart555.nakirunakcrm.entities.Order;
 import com.ivanart555.nakirunakcrm.entities.dto.OrderDto;
 import com.ivanart555.nakirunakcrm.services.DestinationService;
 import com.ivanart555.nakirunakcrm.services.OrderService;
 import com.ivanart555.nakirunakcrm.services.OrderStatusService;
 import lombok.AllArgsConstructor;
-import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +15,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 @AllArgsConstructor
@@ -24,7 +25,7 @@ public class OrderRestController {
     private final OrderService orderService;
     private final OrderStatusService orderStatusService;
     private final DestinationService destinationService;
-    private final ModelMapper modelMapper;
+    private final OrderMapper orderMapper;
 
     @GetMapping
     public List<Order> findAll() {
@@ -38,20 +39,16 @@ public class OrderRestController {
 
     @PostMapping()
     public ResponseEntity<Object> create(@RequestBody OrderDto orderDto) {
-        Order order = convertToEntity(orderDto);
+        Order order = orderMapper.convertToEntity(orderDto);
 
-        order.setTimestamp(ZonedDateTime.now(ZoneId.of("Europe/Minsk")).toLocalDateTime());
+        order.setTimestamp(ZonedDateTime.now(ZoneId.of("Europe/Minsk")).toLocalDateTime().truncatedTo(ChronoUnit.SECONDS));
         order.setOrderStatus(orderStatusService.findByName("Новая"));
-        order.setDestination(destinationService.findByName(orderDto.getDestination()));
+        order.setDestination(destinationService.findByName(orderDto.getDestinationName()));
         order.setComment("");
 
         int id = orderService.save(order);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(id).toUri();
         return ResponseEntity.created(uri).build();
-    }
-
-    private Order convertToEntity(OrderDto orderDto) {
-        return modelMapper.map(orderDto, Order.class);
     }
 
     @PutMapping()
