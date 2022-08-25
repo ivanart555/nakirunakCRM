@@ -28,7 +28,7 @@ import java.util.stream.IntStream;
 @Controller
 @RequestMapping("/")
 public class OrderController {
-    private static final String REDIRECT_ORDERS = "redirect:/orders";
+    private static final String REDIRECT_ORDERS = "redirect:/";
     private final OrderService orderService;
     private final CustomerService customerService;
     private final DestinationService destinationService;
@@ -69,18 +69,18 @@ public class OrderController {
     }
 
     @PostMapping()
-    public String create(@ModelAttribute("order") Order order)
+    public String create(@ModelAttribute("orderDto") OrderDto orderDto)
             throws ServiceException {
-        order.setTimestamp(ZonedDateTime.now(ZoneId.of("Europe/Minsk")).toLocalDateTime());
+        Order order = orderMapper.convertToEntity(orderDto);
 
         orderService.save(order);
         return REDIRECT_ORDERS;
     }
 
     @PatchMapping("/edit")
-    public String update(@ModelAttribute("order") Order order)
+    public String update(@ModelAttribute("orderDto") OrderDto orderDto)
             throws ServiceException {
-
+        Order order = orderMapper.convertToEntity(orderDto);
         orderService.save(order);
         return REDIRECT_ORDERS;
     }

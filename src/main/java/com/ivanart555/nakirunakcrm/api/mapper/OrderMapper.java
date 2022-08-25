@@ -15,7 +15,14 @@ public class OrderMapper {
     private final ModelMapper modelMapper;
 
     public Order convertToEntity(OrderDto orderDto) {
-        return modelMapper.map(orderDto, Order.class);
+
+        modelMapper.getConfiguration().setCollectionsMergeEnabled(true);
+
+        Order order = modelMapper.map(orderDto, Order.class);
+
+        int f = 0;
+
+        return order;
     }
 
     public OrderDto convertToDto(Order order) {

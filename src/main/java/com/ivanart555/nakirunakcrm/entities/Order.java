@@ -60,7 +60,8 @@ public class Order {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Order order = (Order) o;
-        return id.equals(order.id) && timestamp.equals(order.timestamp) && destination.equals(order.destination) && orderStatus.equals(order.orderStatus) && customer.equals(order.customer);
+        return id.equals(order.id) && timestamp.equals(order.timestamp) && destination.equals(order.destination)
+                && orderStatus.equals(order.orderStatus) && customer.equals(order.customer);
     }
 
     @Override

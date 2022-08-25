@@ -71,7 +71,7 @@
                             </div>
                             <div class="modal-body">
                                 <form th:action="@{/edit}" th:attr="id=${orderDto.id}"
-                                      th:method="PATCH" th:object="${orderDto}">
+                                      th:method="PATCH" modelAttribute="orderDto" th:object="${orderDto}">
                                     <div class="mb-3">
                                         <input class="form-control" id="id" name="id" th:value="*{id}" type="hidden">
 
@@ -85,11 +85,11 @@
                                             <option th:each="status : ${orderStatuses}"
                                                     th:if="${status.getId()} == *{orderStatusId}"
                                                     th:utext="--current--"
-                                                    th:value="${status.getId()}"/>
+                                                    th:value="${status.getId()}"></option>
                                             <option th:each="status : ${orderStatuses}"
                                                     th:unless="${status.getId()} == *{orderStatusId}"
                                                     th:utext="${status.getName()}"
-                                                    th:value="${status.getId()}"/>
+                                                    th:value="${status.getId()}"></option>
                                         </select>
                                         <br>
 
@@ -110,12 +110,12 @@
                                             <option th:each="customer : ${customers}"
                                                     th:if="${customer.getId()} == *{customerId}"
                                                     th:utext="--current--"
-                                                    th:value="${customer.getId()}"/>
+                                                    th:value="${customer.getId()}"></option>
                                             <option th:each="customer : ${customers}"
                                                     th:unless="${customer.getId()} == *{customerId}"
                                                     th:utext="${customer.getLastName()}  + ' ' + ${customer.getName()} + ' '
                                             + ${customer.getPatronymic()} + ' ; ' + ${customer.getPhoneNumber()}"
-                                                    th:value="${customer.getId()}"/>
+                                                    th:value="${customer.getId()}"></option>
                                         </select>
                                         <br>
 
@@ -129,21 +129,24 @@
                                             <option th:each="destination : ${destinations}"
                                                     th:if="${destination.getId()} == *{destinationId}"
                                                     th:utext="--current--"
-                                                    th:value="${destination.getId()}"
-                                            />
+                                                    th:value="${destination.getId()}"></option>
                                             <option th:each="destination : ${destinations}"
                                                     th:unless="${destination.getId()} == *{destinationId}"
                                                     th:utext="${destination.getName()}"
-                                                    th:value="${destination.getId()}"/>
+                                                    th:value="${destination.getId()}"></option>
                                         </select>
                                         <br>
 
                                         <label class="form-label" for="customerComment">Каментар замоўніка:</label>
-                                        <textarea class="form-control" id="customerComment" rows="3" th:text="*{customerComment}"></textarea>
+                                        <input type="text" class="form-control" id="customerComment"
+                                                  th:value="*{customerComment}"
+                                                  th:text="*{customerComment}"/>
                                         <br>
 
                                         <label class="form-label" for="comment">Каментар:</label>
-                                        <textarea class="form-control" id="comment" rows="3" th:text="*{comment}"></textarea>
+                                        <input type="text" class="form-control" id="comment"
+                                               th:value="*{comment}"
+                                               th:text="*{comment}"/>
 
                                     </div>
 
@@ -159,36 +162,36 @@
                     </div>
                 </div>
 
-                <!--                <div class="modal fade text-body" th:attr="id='modalDelete'+${lessonDto.id}" tabindex="-1"-->
-                <!--                     aria-labelledby="modalDelete" aria-hidden="true">-->
-                <!--                    <div class="modal-dialog">-->
-                <!--                        <div class="modal-content">-->
-                <!--                            <div class="modal-header">-->
-                <!--                                <h5 class="modal-title" id="exampleModalLabel">Warning</h5>-->
-                <!--                                <button type="button" class="btn-close" data-bs-dismiss="modal"-->
-                <!--                                        aria-label="Close"></button>-->
-                <!--                            </div>-->
-                <!--                            <div class="modal-body">-->
+                                <div class="modal fade text-body" th:attr="id='modalDelete'+${orderDto.id}" tabindex="-1"
+                                     aria-labelledby="modalDelete" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="deleteModal">Увага</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                        aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
 
-                <!--                                <form class="form-horizontal"-->
-                <!--                                      th:action="@{/lessons/delete/{id}(id=${lessonDto.id})}" th:method="DELETE">-->
-                <!--                                    <input id="id" name="id" type="hidden" th:value="${lessonDto.id}"/>-->
-                <!--                                    <div class="form-group">-->
-                <!--                                        <div class="text-nowrap bd-highlight">-->
-                <!--                                            <p-->
-                <!--                                                    th:text="'Are you sure you want to delete lesson:' + ' ' + ${lessonDto.id} + ' ' + '?'"></p>-->
-                <!--                                        </div>-->
-                <!--                                    </div>-->
-                <!--                                    <div class="modal-footer">-->
-                <!--                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close-->
-                <!--                                        </button>-->
-                <!--                                        <button type="submit" class="btn btn-danger">Delete lesson</button>-->
-                <!--                                    </div>-->
-                <!--                                </form>-->
-                <!--                            </div>-->
-                <!--                        </div>-->
-                <!--                    </div>-->
-                <!--                </div>-->
+                                                <form class="form-horizontal"
+                                                      th:action="@{/delete/{id}(id=${orderDto.id})}" th:method="DELETE">
+                                                    <input id="id" name="id" type="hidden" th:value="${orderDto.id}"/>
+                                                    <div class="form-group">
+                                                        <div class="text-nowrap bd-highlight">
+                                                            <p
+                                                                    th:text="'Выдаліць замову' + ' ' + ${orderDto.id} + ' ' + '?'"></p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыць
+                                                        </button>
+                                                        <button type="submit" class="btn btn-danger">Выдаліць замову</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
             </td>
 
         </tr>
