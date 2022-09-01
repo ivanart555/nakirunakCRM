@@ -138,15 +138,15 @@
                                         <br>
 
                                         <label class="form-label" for="customerComment">Каментар замоўніка:</label>
-                                        <input type="text" class="form-control" id="customerComment"
+                                        <textarea type="text" class="form-control" id="customerComment" rows="3" name="customerComment"
                                                   th:value="*{customerComment}"
-                                                  th:text="*{customerComment}"/>
+                                                  th:text="*{customerComment}"></textarea>
                                         <br>
 
                                         <label class="form-label" for="comment">Каментар:</label>
-                                        <input type="text" class="form-control" id="comment"
+                                        <textarea type="text" class="form-control" id="comment" rows="3" name="comment"
                                                th:value="*{comment}"
-                                               th:text="*{comment}"/>
+                                               th:text="*{comment}"></textarea>
 
                                     </div>
 
@@ -197,6 +197,88 @@
         </tr>
         </tbody>
     </table>
+
+    <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addModalLabel">Новая Замова</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form th:method="POST" th:action="@{/}" th:object="${orderDto}" id="">
+                        <div class="mb-3">
+                            <label class="form-label" for="orderStatusId">Статус: </label>
+                            <select class="form-select" id="orderStatusId" th:field="*{orderStatusId}">
+                                <option value="" selected>Абярыце статус</option>
+                                <option th:each="status : ${orderStatuses}"
+                                        th:utext="${status.getName()}"
+                                        th:value="${status.getId()}"></option>
+
+                            </select>
+                            <br>
+
+                            <label class="form-label" for="timestamp">Дата і час:</label>
+                            <input class="form-control" id="timestamp" name="timestamp"
+                                   th:attr="id='timestamp'+${orderDto.id}" th:value="*{timestamp}"
+                                   type="datetime-local"/>
+                            <br>
+
+                            <label class="form-label" for="customerId">Замоўнік: </label>
+                            <select class="form-select" id="customerId" th:field="*{customerId}">
+                                <option selected th:if="*{customerId} == null" value="">Абярыце
+                                    замоўніка для Замовы
+                                </option>
+                                <option selected th:unless="*{customerId} == null"
+                                        th:utext="*{customerLastName}  + ' ' + *{customerName} + ' ' + *{customerPatronymic} + ' ; ' + *{customerPhoneNumber}"
+                                        th:value="*{customerId}"></option>
+                                <option th:each="customer : ${customers}"
+                                        th:if="${customer.getId()} == *{customerId}"
+                                        th:utext="--current--"
+                                        th:value="${customer.getId()}"></option>
+                                <option th:each="customer : ${customers}"
+                                        th:unless="${customer.getId()} == *{customerId}"
+                                        th:utext="${customer.getLastName()}  + ' ' + ${customer.getName()} + ' '
+                                            + ${customer.getPatronymic()} + ' ; ' + ${customer.getPhoneNumber()}"
+                                        th:value="${customer.getId()}"></option>
+                            </select>
+                            <br>
+
+                            <label class="form-label" for="destinationId">Накірунак: </label>
+                            <select class="form-select" id="destinationId" th:field="*{destinationId}">
+                                <option selected th:if="*{destinationId} == null" value="">Абярыце накірунак
+                                </option>
+                                <option selected th:unless="*{destinationId} == null"
+                                        th:utext="*{destinationName}"
+                                        th:value="*{destinationId}"></option>
+                                <option th:each="destination : ${destinations}"
+                                        th:if="${destination.getId()} == *{destinationId}"
+                                        th:utext="--current--"
+                                        th:value="${destination.getId()}"></option>
+                                <option th:each="destination : ${destinations}"
+                                        th:unless="${destination.getId()} == *{destinationId}"
+                                        th:utext="${destination.getName()}"
+                                        th:value="${destination.getId()}"></option>
+                            </select>
+                            <br>
+
+                            <label class="form-label" for="customerComment">Каментар замоўніка:</label>
+                            <textarea class="form-control" id="customerComment" rows="3" name="customerComment"></textarea>
+                            <br>
+
+                            <label class="form-label" for="comment">Каментар:</label>
+                            <textarea class="form-control" id="comment" rows="3" name="comment"></textarea>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-success">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <nav aria-label="Page navigation" class="paging">
         <ul class="pagination justify-content-center" th:if="${totalPages > 1}">
