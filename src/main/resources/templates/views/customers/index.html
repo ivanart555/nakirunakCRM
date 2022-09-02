@@ -25,6 +25,14 @@
             <th scope="col">Імя па бацьку</th>
             <th scope="col">Тэлефон</th>
             <th scope="col">Email</th>
+            <th scope="col">
+                <div class="parent position-relative">
+                    <button class="btn btn-success btn-sm position-absolute top-0 end-0" data-bs-target="#addModal"
+                            data-bs-toggle="modal" type="button">Дадаць
+                    </button>
+                </div>
+                Дзеянні
+            </th>
 
         </tr>
         </thead>
@@ -37,9 +45,151 @@
             <td th:text="${customer.getPhoneNumber()}">phone</td>
             <td th:text="${customer.getEmail()}">email</td>
 
+            <td>
+                <button class="btn btn-outline-secondary btn-sm" data-bs-toggle="modal" th:attr="data-bs-target='#modalUpdate'+${customer.id}"
+                        type="button">Рэдагаваць
+                </button>
+
+                <button class="btn btn-outline-danger btn-sm" data-bs-toggle="modal" th:attr="data-bs-target='#modalDelete'+${customer.id}"
+                        type="button">Выдаліць
+                </button>
+
+                <div aria-hidden="true" aria-labelledby="modalUpdate" class="modal fade text-body"
+                     tabindex="-1" th:attr="id='modalUpdate'+${customer.id}">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="updateModalLabel">Рэдагаваць кліента</h5>
+                                <button aria-label="Close" class="btn-close" data-bs-dismiss="modal"
+                                        type="button"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form th:action="@{/customers/edit}" th:attr="id=${customer.id}"
+                                      th:method="PATCH" modelAttribute="orderDto" th:object="${customer}">
+                                    <div class="mb-3">
+                                        <input class="form-control" id="id" name="id" th:value="*{id}" type="hidden">
+
+                                        <label class="form-label" for="name">Імя: </label>
+                                        <input type="text" class="form-control" id="name" name="name"
+                                               th:value="*{name}">
+                                        <br>
+
+                                        <label class="form-label" for="lastName">Прозвішча: </label>
+                                        <input type="text" class="form-control" id="lastName" name="lastName"
+                                               th:value="*{lastName}">
+                                        <br>
+
+                                        <label class="form-label" for="patronymic">Імя па бацьку: </label>
+                                        <input type="text" class="form-control" id="patronymic" name="patronymic"
+                                               th:value="*{patronymic}">
+                                        <br>
+
+                                        <label class="form-label" for="phoneNumber">Тэлефон: </label>
+                                        <input type="tel" class="form-control" id="phoneNumber" name="phoneNumber"
+                                               th:value="*{phoneNumber}">
+                                        <br>
+
+                                        <label class="form-label" for="email">Email: </label>
+                                        <input type="email" class="form-control" id="email" name="email"
+                                               th:value="*{email}">
+                                        <br>
+
+                                    </div>
+
+                                    <div class="modal-footer">
+                                        <button class="btn btn-secondary" data-bs-dismiss="modal" type="button">Close
+                                        </button>
+                                        <button class="btn btn-success" type="submit">Абнавіць кліента</button>
+                                    </div>
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal fade text-body" th:attr="id='modalDelete'+${customer.id}" tabindex="-1"
+                     aria-labelledby="modalDelete" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="deleteModal">Увага</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+
+                                <form class="form-horizontal"
+                                      th:action="@{/delete/{id}(id=${customer.id})}" th:method="DELETE">
+                                    <input id="id" name="id" type="hidden" th:value="${customer.id}"/>
+                                    <div class="form-group">
+                                        <div class="text-nowrap bd-highlight">
+                                            <p
+                                                    th:text="'Выдаліць кліента' + ' ' + ${customer.id} + ' ' + '?'"></p>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыць
+                                        </button>
+                                        <button type="submit" class="btn btn-danger">Выдаліць кліента</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+
         </tr>
         </tbody>
     </table>
+
+
+    <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addModalLabel">Новы Кліент</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form th:method="POST" th:action="@{/customers}" th:object="${customer}" id="">
+                        <div class="mb-3">
+                            <label class="form-label" for="name">Імя: </label>
+                            <input type="text" class="form-control" id="name" name="name"
+                                   th:value="*{name}">
+                            <br>
+
+                            <label class="form-label" for="lastName">Прозвішча: </label>
+                            <input type="text" class="form-control" id="lastName" name="lastName"
+                                   th:value="*{lastName}">
+                            <br>
+
+                            <label class="form-label" for="patronymic">Імя па бацьку: </label>
+                            <input type="text" class="form-control" id="patronymic" name="patronymic"
+                                   th:value="*{patronymic}">
+                            <br>
+
+                            <label class="form-label" for="phoneNumber">Тэлефон: </label>
+                            <input type="tel" class="form-control" id="phoneNumber" name="phoneNumber"
+                                   th:value="*{phoneNumber}">
+                            <br>
+
+                            <label class="form-label" for="email">Email: </label>
+                            <input type="email" class="form-control" id="email" name="email"
+                                   th:value="*{email}">
+                            <br>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-success">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <nav aria-label="Page navigation" class="paging">
         <ul class="pagination justify-content-center" th:if="${totalPages > 1}">
