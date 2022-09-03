@@ -1,5 +1,6 @@
 package com.ivanart555.nakirunakcrm.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -32,8 +33,8 @@ public class Order {
     @JoinColumn(name = "order_status_id")
     private OrderStatus orderStatus;
 
-    @ManyToOne(cascade = {CascadeType.ALL})
-    @JoinColumn(name = "customer_id")
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY)
     private Customer customer;
 
     @Column(name = "comment")
