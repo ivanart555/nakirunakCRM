@@ -42,18 +42,27 @@ public class OrderMapper {
         Destination destination;
         try {
             destination = orderDto.getDestinationId() == null ? null : destinationService.findById(orderDto.getDestinationId());
+            destination = destination == null ? destinationService.findByName(orderDto.getDestinationName()) : null;
+
             order.setDestination(destination);
         } catch (ServiceException e) {
-            log.warn("Destination with id {} not found!", orderDto.getDestinationId());
+            log.warn("Destination with id {} or name {} not found!", orderDto.getDestinationId(), orderDto.getDestinationName());
         }
 
-        Customer customer;
+        Customer customer = null;
         try {
-            customer = orderDto.getCustomerId() == null ? null : customerService.findById(orderDto.getCustomerId());
-            order.setCustomer(customer);
+            if (orderDto.getCustomerId() != null) {
+                customer = customerService.findById(orderDto.getCustomerId());
+            } else if(orderDto.getCustomerPhoneNumber() != null) {
+                customer = customerService.findByPhoneNumber(orderDto.getCustomerPhoneNumber());
+            }
         } catch (ServiceException e) {
-            log.warn("Customer with id {} not found!", orderDto.getDestinationId());
+            log.info("Customer with id {} or phone number {} not found!", orderDto.getDestinationId(), orderDto.getCustomerPhoneNumber());
+            customer = new Customer(orderDto.getCustomerName(), orderDto.getCustomerLastName(),
+                    orderDto.getCustomerPatronymic(), orderDto.getCustomerPhoneNumber(), orderDto.getCustomerEmail());
+            log.info("Customer:" + " " + customer.getName() + " " + customer.getPhoneNumber() + " created.");
         }
+        order.setCustomer(customer);
 
         return order;
     }

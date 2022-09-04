@@ -34,6 +34,20 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
+    public Customer findByPhoneNumber(String phoneNumber) throws ServiceException {
+        Customer customer = null;
+        try {
+            customer = customerRepository.findByPhoneNumber(phoneNumber).orElseThrow(() -> new ServiceException(
+                    String.format("Customer with phone number %s not found!", phoneNumber)));
+        } catch (EntityNotFoundException e) {
+            log.warn("Customer with phone number {} not found!", phoneNumber);
+        }
+        log.info("Customer with phone number {} received successfully.", phoneNumber);
+
+        return customer;
+    }
+
+    @Override
     public Customer findById(Integer id) throws ServiceException {
         Customer customer = null;
         try {

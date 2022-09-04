@@ -24,6 +24,7 @@ public class OrderDto {
     @NotNull
     private String customerPhoneNumber;
     @NotNull
+    private String customerEmail;
     @NotNull
     private Integer destinationId;
     private String destinationName;

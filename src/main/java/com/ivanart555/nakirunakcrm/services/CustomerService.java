@@ -10,4 +10,6 @@ public interface CustomerService extends GenericService<Customer, Integer> {
 
     Page<Customer> findAll(Pageable pageable) throws ServiceException;
 
+    Customer findByPhoneNumber(String phoneNumber) throws ServiceException;
+
 }

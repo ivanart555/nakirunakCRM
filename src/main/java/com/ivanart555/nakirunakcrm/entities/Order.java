@@ -34,7 +34,7 @@ public class Order {
     private OrderStatus orderStatus;
 
     @JsonIgnore
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Customer customer;
 
     @Column(name = "comment")

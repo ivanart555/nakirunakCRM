@@ -42,6 +42,14 @@ public class Customer {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "customer")
     private Set<Order> orders = new HashSet<>();
 
+    public Customer(String name, String lastName, String patronymic, String phoneNumber, String email) {
+        this.name = name;
+        this.lastName = lastName;
+        this.patronymic = patronymic;
+        this.phoneNumber = phoneNumber;
+        this.email = email;
+    }
+
     @Override
     public String toString() {
         return "Customer{" +

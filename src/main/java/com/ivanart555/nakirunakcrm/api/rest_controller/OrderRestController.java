@@ -44,7 +44,6 @@ public class OrderRestController {
         order.setTimestamp(ZonedDateTime.now(ZoneId.of("Europe/Minsk")).toLocalDateTime().truncatedTo(ChronoUnit.SECONDS));
         order.setOrderStatus(orderStatusService.findByName("Новая"));
         order.setDestination(destinationService.findByName(orderDto.getDestinationName()));
-        order.setComment("");
 
         int id = orderService.save(order);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(id).toUri();
