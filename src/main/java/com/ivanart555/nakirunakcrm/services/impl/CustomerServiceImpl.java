@@ -1,9 +1,12 @@
 package com.ivanart555.nakirunakcrm.services.impl;
 
 import com.ivanart555.nakirunakcrm.entities.Customer;
+import com.ivanart555.nakirunakcrm.entities.Order;
 import com.ivanart555.nakirunakcrm.exception.ServiceException;
 import com.ivanart555.nakirunakcrm.repository.CustomerRepository;
+import com.ivanart555.nakirunakcrm.repository.OrderRepository;
 import com.ivanart555.nakirunakcrm.services.CustomerService;
+import com.ivanart555.nakirunakcrm.services.OrderService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -12,12 +15,14 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Set;
 
 @Slf4j
 @AllArgsConstructor
 @Component
 public class CustomerServiceImpl implements CustomerService {
     private final CustomerRepository customerRepository;
+    private final OrderService orderService;
 
     @Override
     public List<Customer> findAll() throws ServiceException {
@@ -70,7 +75,17 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public void deleteById(Integer id) throws ServiceException {
+        deleteCustomerOrders(id);
+
         customerRepository.deleteById(id);
         log.info("Customer with id {} deleted successfully.", id);
     }
+
+    private void deleteCustomerOrders(Integer customerId) {
+        Set<Order> orders = findById(customerId).getOrders();
+        for (Order order:orders) {
+            orderService.deleteById(order.getId());
+        }
+    }
+
 }

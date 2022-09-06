@@ -42,7 +42,9 @@ public class OrderMapper {
         Destination destination;
         try {
             destination = orderDto.getDestinationId() == null ? null : destinationService.findById(orderDto.getDestinationId());
-            destination = destination == null ? destinationService.findByName(orderDto.getDestinationName()) : null;
+            if (destination == null && orderDto.getDestinationName() != null) {
+                destination = destinationService.findByName(orderDto.getDestinationName());
+            }
 
             order.setDestination(destination);
         } catch (ServiceException e) {
@@ -60,7 +62,7 @@ public class OrderMapper {
             log.info("Customer with id {} or phone number {} not found!", orderDto.getDestinationId(), orderDto.getCustomerPhoneNumber());
             customer = new Customer(orderDto.getCustomerName(), orderDto.getCustomerLastName(),
                     orderDto.getCustomerPatronymic(), orderDto.getCustomerPhoneNumber(), orderDto.getCustomerEmail());
-            log.info("Customer:" + " " + customer.getName() + " " + customer.getPhoneNumber() + " created.");
+            customerService.save(customer);
         }
         order.setCustomer(customer);
 
