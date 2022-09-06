@@ -150,7 +150,7 @@
                             <div class="modal-body">
 
                                 <form class="form-horizontal"
-                                      th:action="@{/delete/{id}(id=${customer.id})}" th:method="DELETE">
+                                      th:action="@{/customers/delete/{id}(id=${customer.id})}" th:method="DELETE">
                                     <input id="id" name="id" type="hidden" th:value="${customer.id}"/>
                                     <div class="form-group">
                                         <div class="text-nowrap bd-highlight">

@@ -4,7 +4,6 @@ import com.ivanart555.nakirunakcrm.entities.Customer;
 import com.ivanart555.nakirunakcrm.entities.Order;
 import com.ivanart555.nakirunakcrm.exception.ServiceException;
 import com.ivanart555.nakirunakcrm.repository.CustomerRepository;
-import com.ivanart555.nakirunakcrm.repository.OrderRepository;
 import com.ivanart555.nakirunakcrm.services.CustomerService;
 import com.ivanart555.nakirunakcrm.services.OrderService;
 import jakarta.persistence.EntityNotFoundException;
