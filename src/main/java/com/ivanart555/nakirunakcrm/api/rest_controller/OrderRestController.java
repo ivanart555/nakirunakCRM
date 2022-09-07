@@ -39,6 +39,11 @@ public class OrderRestController {
 
     @PostMapping()
     public ResponseEntity<Object> create(@RequestBody OrderDto orderDto) {
+
+        if(orderDto.getCustomerName() == null) {  //tilda connection property save
+            return ResponseEntity.ok().build();
+        }
+
         Order order = orderMapper.convertToEntity(orderDto);
 
         order.setTimestamp(ZonedDateTime.now(ZoneId.of("Europe/Minsk")).toLocalDateTime().truncatedTo(ChronoUnit.SECONDS));
