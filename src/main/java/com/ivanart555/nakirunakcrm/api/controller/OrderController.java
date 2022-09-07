@@ -26,9 +26,9 @@ import java.util.stream.IntStream;
 
 @AllArgsConstructor
 @Controller
-@RequestMapping("/")
+@RequestMapping("/orders")
 public class OrderController {
-    private static final String REDIRECT_ORDERS = "redirect:/";
+    private static final String REDIRECT_ORDERS = "redirect:/orders";
     private final OrderService orderService;
     private final CustomerService customerService;
     private final DestinationService destinationService;
