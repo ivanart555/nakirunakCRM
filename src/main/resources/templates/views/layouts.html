@@ -10,32 +10,38 @@
 <body>
 
 <nav th:fragment="navbar" class="navbar navbar-expand-lg navbar-dark bg-primary" aria-label="navbar">
-    <a class="navbar-brand" th:href="@{/}">Nakirunak CRM</a>
 
-    <div class="collapse navbar-collapse" id="navbarColor02">
+    <div class="container">
 
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item">
-                <a class="nav-link" th:href="@{/}">Замовы</a>
-            </li>
-        </ul>
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item">
-                <a class="nav-link" th:href="@{/customers}">Кліенты</a>
-            </li>
-        </ul>
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item">
-                <a class="nav-link" th:href="@{/destinations}">Накірункі</a>
-            </li>
-        </ul>
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item">
-                <a class="nav-link" th:href="@{/statuses}">Статусы замоў</a>
-            </li>
-        </ul>
+        <a class="navbar-brand" th:href="@{/}">Nakirunak CRM</a>
+
+        <div class="collapse navbar-collapse" id="navbarColor02">
+
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/}">Замовы</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/customers}">Кліенты</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/destinations}">Накірункі</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/statuses}">Статусы замоў</a>
+                </li>
+            </ul>
+
+        </div>
 
     </div>
+
 </nav>
 
 </body>
