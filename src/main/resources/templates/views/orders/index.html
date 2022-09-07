@@ -103,7 +103,7 @@
                                         type="button"></button>
                             </div>
                             <div class="modal-body">
-                                <form th:action="@{/edit}" th:attr="id=${orderDto.id}"
+                                <form th:action="@{/orders/edit}" th:attr="id=${orderDto.id}"
                                       th:method="PATCH" modelAttribute="orderDto" th:object="${orderDto}">
                                     <div class="mb-3">
                                         <input class="form-control" id="id" name="id" th:value="*{id}" type="hidden">
@@ -207,7 +207,7 @@
                                             <div class="modal-body">
 
                                                 <form class="form-horizontal"
-                                                      th:action="@{/delete/{id}(id=${orderDto.id})}" th:method="DELETE">
+                                                      th:action="@{/orders/delete/{id}(id=${orderDto.id})}" th:method="DELETE">
                                                     <input id="id" name="id" type="hidden" th:value="${orderDto.id}"/>
                                                     <div class="form-group">
                                                         <div class="text-nowrap bd-highlight">
@@ -239,7 +239,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form th:method="POST" th:action="@{/}" th:object="${orderDto}" id="">
+                    <form th:method="POST" th:action="@{/orders}" th:object="${orderDto}" id="">
                         <div class="mb-3">
                             <label class="form-label" for="orderStatusId">Статус: </label>
                             <select class="form-select" id="orderStatusId" th:field="*{orderStatusId}">
@@ -329,7 +329,7 @@
             </th:block>
 
             <li class="page-item" th:classappend="${!orderDtoPage.hasNext()? 'disabled' : ''}">
-                <a class="page-link" th:href="@{/orders(size=${groupPage.size}, page=${currentPage + 1})}">Next</a>
+                <a class="page-link" th:href="@{/orders(size=${orderDtoPage.size}, page=${currentPage + 1})}">Next</a>
             </li>
         </ul>
     </nav>
