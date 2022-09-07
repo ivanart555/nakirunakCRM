@@ -173,20 +173,20 @@
     <nav aria-label="Page navigation" class="paging">
         <ul class="pagination justify-content-center" th:if="${totalPages > 1}">
             <li class="page-item" th:classappend="${!destinationPage.hasPrevious()? 'disabled' : ''}">
-                <a class="page-link" th:href="@{/destionations(size=${destinationPage.size}, page=${currentPage - 1})}"
+                <a class="page-link" th:href="@{/destinations(size=${destinationPage.size}, page=${currentPage - 1})}"
                    tabindex="-1">Previous</a>
             </li>
 
             <th:block th:each="number : ${pageNumbers}">
                 <li class="page-item" th:classappend="${number == currentPage? 'active' : ''}">
-                    <a class="page-link" th:href="@{/destionations(size=${destinationPage.size}, page=${number})}"
+                    <a class="page-link" th:href="@{/destinations(size=${destinationPage.size}, page=${number})}"
                        th:text="${number}"></a>
                 </li>
 
             </th:block>
 
             <li class="page-item" th:classappend="${!destinationPage.hasNext()? 'disabled' : ''}">
-                <a class="page-link" th:href="@{/destionations(size=${destinationPage.size}, page=${currentPage + 1})}">Next</a>
+                <a class="page-link" th:href="@{/destinations(size=${destinationPage.size}, page=${currentPage + 1})}">Next</a>
             </li>
         </ul>
     </nav>

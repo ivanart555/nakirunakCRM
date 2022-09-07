@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 public class OrderDto {
 
     private int id;
-    @NotNull
+    private int publicId;
     @NotNull
     private LocalDateTime timestamp;
     private Integer customerId;

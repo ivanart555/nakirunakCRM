@@ -22,6 +22,9 @@ public class Order {
     @Column(name = "order_id")
     private Integer id;
 
+    @Column(name = "public_id")
+    private Integer publicId;
+
     @Column(name = "timestamp")
     private LocalDateTime timestamp;
 
@@ -47,6 +50,7 @@ public class Order {
     public String toString() {
         return "Order{" +
                 "id=" + id +
+                ", public_id=" + publicId +
                 ", timestamp=" + timestamp +
                 ", destination=" + destination +
                 ", orderStatus=" + orderStatus +
@@ -61,12 +65,11 @@ public class Order {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Order order = (Order) o;
-        return id.equals(order.id) && timestamp.equals(order.timestamp) && destination.equals(order.destination)
-                && orderStatus.equals(order.orderStatus) && customer.equals(order.customer);
+        return id.equals(order.id) && publicId.equals(order.publicId) && timestamp.equals(order.timestamp) && destination.equals(order.destination) && orderStatus.equals(order.orderStatus) && customer.equals(order.customer);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, timestamp, destination, orderStatus, customer);
+        return Objects.hash(id, publicId, timestamp, destination, orderStatus, customer);
     }
 }
