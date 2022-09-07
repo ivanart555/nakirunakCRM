@@ -57,7 +57,7 @@
         </thead>
         <tbody>
         <tr th:each="orderDto : ${orderDtoPage.content}">
-            <td th:text="${orderDto.getId()}">id</td>
+            <td th:text="${orderDto.getPublicId()}">id</td>
             <td th:text="${#temporals.format(orderDto.getTimestamp(), 'dd.MM.yyyy HH:mm')}">timestamp</td>
             <td th:text="${orderDto.getCustomerLastName()  + ' ' + orderDto.getCustomerName() + ' ' + orderDto.getCustomerPatronymic()}">
                 customer
@@ -107,6 +107,7 @@
                                       th:method="PATCH" modelAttribute="orderDto" th:object="${orderDto}">
                                     <div class="mb-3">
                                         <input class="form-control" id="id" name="id" th:value="*{id}" type="hidden">
+                                        <input class="form-control" id="publicId" name="publicId" th:value="*{publicId}" type="hidden">
 
                                         <label class="form-label" for="orderStatusId">Статус: </label>
                                         <select class="form-select" id="orderStatusId" th:field="*{orderStatusId}">
@@ -212,7 +213,7 @@
                                                     <div class="form-group">
                                                         <div class="text-nowrap bd-highlight">
                                                             <p
-                                                                    th:text="'Выдаліць замову' + ' ' + ${orderDto.id} + ' ' + '?'"></p>
+                                                                    th:text="'Выдаліць замову' + ' ' + ${orderDto.publicId} + ' ' + '?'"></p>
                                                         </div>
                                                     </div>
                                                     <div class="modal-footer">

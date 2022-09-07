@@ -10,4 +10,6 @@ public interface OrderService extends GenericService<Order, Integer> {
 
     Page<Order> findAll(Pageable pageable) throws ServiceException;
 
+    void assignPublicId(Order order) throws ServiceException;
+
 }

@@ -45,6 +45,7 @@ public class OrderRestController {
         }
 
         Order order = orderMapper.convertToEntity(orderDto);
+        orderService.assignPublicId(order);
 
         order.setTimestamp(ZonedDateTime.now(ZoneId.of("Europe/Minsk")).toLocalDateTime().truncatedTo(ChronoUnit.SECONDS));
         order.setOrderStatus(orderStatusService.findByName("Новая"));

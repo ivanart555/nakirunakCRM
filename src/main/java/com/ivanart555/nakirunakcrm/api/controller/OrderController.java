@@ -72,6 +72,7 @@ public class OrderController {
     public String create(@ModelAttribute("orderDto") OrderDto orderDto)
             throws ServiceException {
         Order order = orderMapper.convertToEntity(orderDto);
+        orderService.assignPublicId(order);
 
         orderService.save(order);
         return REDIRECT_ORDERS;

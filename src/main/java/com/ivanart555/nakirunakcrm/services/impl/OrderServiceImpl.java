@@ -59,4 +59,17 @@ public class OrderServiceImpl implements OrderService {
         orderRepository.deleteById(id);
         log.info("Order with id {} deleted successfully.", id);
     }
+
+    @Override
+    public void assignPublicId(Order order) {
+        Order lastOrder = orderRepository.findFirstByOrderByPublicIdDesc();
+
+        if (lastOrder != null) {
+            order.setPublicId(lastOrder.getPublicId() + 1);
+            log.info("The last order found sorted by public id!");
+        } else {
+            order.setPublicId(1);
+            log.info("The last order not found sorted by public id! Public id set to 1!");
+        }
+    }
 }
