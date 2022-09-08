@@ -1,6 +1,7 @@
 package com.ivanart555.nakirunakcrm.entities;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,6 +25,7 @@ public class Destination {
     private Integer publicId;
 
     @Column(name = "name")
+    @Pattern(regexp = "(^[А-Я][а-яА-я][а-яА-я\\s]{0,48}$)", message = "Country name must be 50 letters long max and start with capitalized letter")
     private String name;
 
     @Override

@@ -31,7 +31,7 @@ public class CustomerController {
         int currentPage = page.orElse(1);
         int pageSize = size.orElse(15);
 
-        Pageable sortedById = PageRequest.of(currentPage - 1, pageSize, Sort.by("id"));
+        Pageable sortedById = PageRequest.of(currentPage - 1, pageSize, Sort.by("publicId"));
         Page<Customer> customerPage = customerService.findAll(sortedById);
 
         model.addAttribute("customerPage", customerPage);

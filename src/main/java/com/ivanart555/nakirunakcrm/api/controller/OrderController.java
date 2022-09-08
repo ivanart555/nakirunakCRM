@@ -42,7 +42,7 @@ public class OrderController {
         int currentPage = page.orElse(1);
         int pageSize = size.orElse(15);
 
-        Pageable sortedById = PageRequest.of(currentPage - 1, pageSize, Sort.by("id"));
+        Pageable sortedById = PageRequest.of(currentPage - 1, pageSize, Sort.by("publicId"));
         Page<Order> orderPage = orderService.findAll(sortedById);
 
         Page<OrderDto> orderDtoPage = orderPage.map(orderMapper::convertToDto);
