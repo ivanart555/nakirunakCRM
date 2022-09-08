@@ -51,7 +51,7 @@
         </thead>
         <tbody>
         <tr th:each="customer : ${customerPage.content}">
-            <td th:text="${customer.getId()}">id</td>
+            <td th:text="${customer.getPublicId()}">id</td>
             <td th:text="${customer.getName()}">name</td>
             <td th:text="${customer.getLastName()}">lastName</td>
             <td th:text="${customer.getPatronymic()}">patronymic</td>
