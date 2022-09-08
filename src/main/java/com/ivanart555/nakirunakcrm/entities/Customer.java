@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.validation.constraints.Pattern;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -27,6 +28,7 @@ public class Customer {
     private Integer publicId;
 
     @Column(name = "name")
+    @Pattern(regexp = "[A-Z][a-z]+", message = "First name must be capitalized")
     private String name;
 
     @Column(name = "last_name")

@@ -62,6 +62,8 @@ public class OrderMapper {
             log.info("Customer with id {} or phone number {} not found!", orderDto.getDestinationId(), orderDto.getCustomerPhoneNumber());
             customer = new Customer(orderDto.getCustomerName(), orderDto.getCustomerLastName(),
                     orderDto.getCustomerPatronymic(), orderDto.getCustomerPhoneNumber(), orderDto.getCustomerEmail());
+            customerService.assignPublicId(customer);
+
             customerService.save(customer);
         }
         order.setCustomer(customer);
