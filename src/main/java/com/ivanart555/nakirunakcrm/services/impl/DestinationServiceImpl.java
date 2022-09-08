@@ -1,5 +1,6 @@
 package com.ivanart555.nakirunakcrm.services.impl;
 
+import com.ivanart555.nakirunakcrm.entities.Customer;
 import com.ivanart555.nakirunakcrm.entities.Destination;
 import com.ivanart555.nakirunakcrm.exception.ServiceException;
 import com.ivanart555.nakirunakcrm.repository.DestinationRepository;
@@ -59,6 +60,19 @@ public class DestinationServiceImpl implements DestinationService {
         log.info("Destination with id {} received successfully.", name);
 
         return destination;
+    }
+
+    @Override
+    public void assignPublicId(Destination destination) throws ServiceException {
+        Destination lastDestination = destinationRepository.findFirstByOrderByPublicIdDesc();
+
+        if (lastDestination != null) {
+            destination.setPublicId(lastDestination.getPublicId() + 1);
+            log.info("The last destination found sorted by public id!");
+        } else {
+            destination.setPublicId(1);
+            log.info("The last destination not found sorted by public id! Public id set to 1!");
+        }
     }
 
     @Override

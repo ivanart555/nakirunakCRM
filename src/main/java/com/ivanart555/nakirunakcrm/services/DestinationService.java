@@ -1,5 +1,6 @@
 package com.ivanart555.nakirunakcrm.services;
 
+import com.ivanart555.nakirunakcrm.entities.Customer;
 import com.ivanart555.nakirunakcrm.entities.Destination;
 import com.ivanart555.nakirunakcrm.exception.ServiceException;
 import com.ivanart555.nakirunakcrm.services.generic.GenericService;
@@ -11,5 +12,7 @@ public interface DestinationService extends GenericService<Destination, Integer>
     Page<Destination> findAll(Pageable pageable) throws ServiceException;
 
     Destination findByName(String name) throws ServiceException;
+
+    void assignPublicId(Destination destination) throws ServiceException;
 
 }

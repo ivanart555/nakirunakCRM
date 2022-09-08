@@ -23,6 +23,9 @@ public class Customer {
     @Column(name = "customer_id")
     private Integer id;
 
+    @Column(name = "public_id")
+    private Integer publicId;
+
     @Column(name = "name")
     private String name;
 
@@ -54,11 +57,13 @@ public class Customer {
     public String toString() {
         return "Customer{" +
                 "id=" + id +
+                ", publicId=" + publicId +
                 ", name='" + name + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", patronymic='" + patronymic + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", email='" + email + '\'' +
+                ", orders=" + orders +
                 '}';
     }
 
@@ -67,11 +72,11 @@ public class Customer {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Customer customer = (Customer) o;
-        return id.equals(customer.id) && name.equals(customer.name) && Objects.equals(lastName, customer.lastName) && Objects.equals(patronymic, customer.patronymic) && phoneNumber.equals(customer.phoneNumber) && Objects.equals(email, customer.email);
+        return id.equals(customer.id) && publicId.equals(customer.publicId) && name.equals(customer.name) && Objects.equals(lastName, customer.lastName) && Objects.equals(patronymic, customer.patronymic) && phoneNumber.equals(customer.phoneNumber) && Objects.equals(email, customer.email);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, lastName, patronymic, phoneNumber, email);
+        return Objects.hash(id, publicId, name, lastName, patronymic, phoneNumber, email);
     }
 }

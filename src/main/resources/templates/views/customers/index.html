@@ -98,6 +98,7 @@
                                       th:method="PATCH" modelAttribute="orderDto" th:object="${customer}">
                                     <div class="mb-3">
                                         <input class="form-control" id="id" name="id" th:value="*{id}" type="hidden">
+                                        <input class="form-control" id="publicId" name="publicId" th:value="*{publicId}" type="hidden">
 
                                         <label class="form-label" for="name">Імя: </label>
                                         <input type="text" class="form-control" id="name" name="name"
@@ -155,7 +156,7 @@
                                     <div class="form-group">
                                         <div class="text-nowrap bd-highlight">
                                             <p
-                                                    th:text="'Выдаліць кліента' + ' ' + ${customer.id} + ' ' + '?'"></p>
+                                                    th:text="'Выдаліць кліента' + ' ' + ${customer.publicId} + ' ' + '?'"></p>
                                         </div>
                                     </div>
                                     <div class="modal-footer">

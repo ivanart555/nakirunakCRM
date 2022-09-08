@@ -11,4 +11,6 @@ public interface DestinationRepository extends JpaRepository<Destination, Intege
 
     Optional<Destination> findByName(String name);
 
+    Destination findFirstByOrderByPublicIdDesc();
+
 }

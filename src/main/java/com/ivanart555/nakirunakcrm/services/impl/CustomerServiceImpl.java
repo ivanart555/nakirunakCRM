@@ -52,6 +52,19 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
+    public void assignPublicId(Customer customer) throws ServiceException {
+        Customer lastCustomer = customerRepository.findFirstByOrderByPublicIdDesc();
+
+        if (lastCustomer != null) {
+            customer.setPublicId(lastCustomer.getPublicId() + 1);
+            log.info("The last customer found sorted by public id!");
+        } else {
+            customer.setPublicId(1);
+            log.info("The last customer not found sorted by public id! Public id set to 1!");
+        }
+    }
+
+    @Override
     public Customer findById(Integer id) throws ServiceException {
         Customer customer = null;
         try {

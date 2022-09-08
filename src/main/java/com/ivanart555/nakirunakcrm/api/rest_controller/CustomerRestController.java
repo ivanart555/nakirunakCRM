@@ -29,6 +29,8 @@ public class CustomerRestController {
 
     @PostMapping()
     public ResponseEntity<Object> create(@RequestBody Customer customer) {
+        customerService.assignPublicId(customer);
+
         int id = customerService.save(customer);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(id).toUri();
         return ResponseEntity.created(uri).build();

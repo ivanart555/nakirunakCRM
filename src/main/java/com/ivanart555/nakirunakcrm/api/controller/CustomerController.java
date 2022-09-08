@@ -54,6 +54,7 @@ public class CustomerController {
     @PostMapping()
     public String create(@ModelAttribute("customer") Customer customer)
             throws ServiceException {
+        customerService.assignPublicId(customer);
 
         customerService.save(customer);
         return REDIRECT_CUSTOMERS;
@@ -62,7 +63,6 @@ public class CustomerController {
     @PatchMapping("/edit")
     public String update(@ModelAttribute("customer") Customer customer)
             throws ServiceException {
-
         customerService.save(customer);
         return REDIRECT_CUSTOMERS;
     }

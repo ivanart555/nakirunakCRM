@@ -29,6 +29,8 @@ public class DestinationRestController {
 
     @PostMapping()
     public ResponseEntity<Object> create(@RequestBody Destination destination) {
+        destinationService.assignPublicId(destination);
+
         int id = destinationService.save(destination);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(id).toUri();
         return ResponseEntity.created(uri).build();

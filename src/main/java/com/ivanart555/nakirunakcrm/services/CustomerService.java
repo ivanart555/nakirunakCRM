@@ -12,4 +12,6 @@ public interface CustomerService extends GenericService<Customer, Integer> {
 
     Customer findByPhoneNumber(String phoneNumber) throws ServiceException;
 
+    void assignPublicId(Customer customer) throws ServiceException;
+
 }

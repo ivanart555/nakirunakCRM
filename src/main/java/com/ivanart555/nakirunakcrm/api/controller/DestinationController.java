@@ -54,6 +54,7 @@ public class DestinationController {
     @PostMapping()
     public String create(@ModelAttribute("destination") Destination destination)
             throws ServiceException {
+        destinationService.assignPublicId(destination);
 
         destinationService.save(destination);
         return REDIRECT_DESTINATIONS;

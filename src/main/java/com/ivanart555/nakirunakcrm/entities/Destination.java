@@ -20,6 +20,9 @@ public class Destination {
     @Column(name = "destination_id")
     private Integer id;
 
+    @Column(name="public_id")
+    private Integer publicId;
+
     @Column(name = "name")
     private String name;
 
@@ -27,6 +30,7 @@ public class Destination {
     public String toString() {
         return "Destination{" +
                 "id=" + id +
+                ", publicId=" + publicId +
                 ", name='" + name + '\'' +
                 '}';
     }
@@ -36,11 +40,11 @@ public class Destination {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Destination that = (Destination) o;
-        return id.equals(that.id) && name.equals(that.name);
+        return id.equals(that.id) && publicId.equals(that.publicId) && name.equals(that.name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name);
+        return Objects.hash(id, publicId, name);
     }
 }
