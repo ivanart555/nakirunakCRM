@@ -59,7 +59,8 @@
         <tr th:each="orderDto : ${orderDtoPage.content}">
             <td th:text="${orderDto.getPublicId()}">id</td>
             <td th:text="${#temporals.format(orderDto.getTimestamp(), 'dd.MM.yyyy HH:mm')}">timestamp</td>
-            <td th:text="${orderDto.getCustomerLastName()  + ' ' + orderDto.getCustomerName() + ' ' + orderDto.getCustomerPatronymic()}">
+            <td th:text="${#strings.defaultString(orderDto.getCustomerLastName(),'')} +' ' + ${#strings.defaultString(orderDto.getCustomerName(),'')} + ' '
+                         + ${#strings.defaultString(orderDto.getCustomerPatronymic(),'')}">
                 customer
             </td>
             <td th:text="${orderDto.getCustomerPhoneNumber()}">phone</td>

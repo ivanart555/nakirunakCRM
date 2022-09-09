@@ -53,8 +53,8 @@
         <tr th:each="customer : ${customerPage.content}">
             <td th:text="${customer.getPublicId()}">id</td>
             <td th:text="${customer.getName()}">name</td>
-            <td th:text="${customer.getLastName()}">lastName</td>
-            <td th:text="${customer.getPatronymic()}">patronymic</td>
+            <td th:text="${#strings.defaultString(customer.getLastName(),'')}">lastName</td>
+            <td th:text="${#strings.defaultString(customer.getPatronymic(),'')}">patronymic</td>
             <td th:text="${customer.getPhoneNumber()}">phone</td>
             <td th:text="${customer.getEmail()}">email</td>
 
