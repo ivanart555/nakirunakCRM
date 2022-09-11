@@ -2,6 +2,8 @@ package com.ivanart555.nakirunakcrm.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,27 +25,34 @@ public class Order {
     private Integer id;
 
     @Column(name = "public_id")
+    @NotNull
     private Integer publicId;
 
     @Column(name = "timestamp")
+    @NotNull
     private LocalDateTime timestamp;
 
     @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
     @JoinColumn(name = "destination_id")
+    @NotNull
     private Destination destination;
 
     @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
     @JoinColumn(name = "order_status_id")
+    @NotNull
     private OrderStatus orderStatus;
 
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
+    @NotNull
     private Customer customer;
 
     @Column(name = "comment")
+    @Pattern(regexp = "^\\p{L}{0,255}$", message = "Comment must contain max 255 letters")
     private String comment;
 
     @Column(name = "customer_comment")
+    @Pattern(regexp = "^\\p{L}{0,255}$", message = "Customer comment must contain max 255 letters")
     private String customerComment;
 
     @Override
