@@ -2,6 +2,7 @@ package com.ivanart555.nakirunakcrm.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -27,18 +28,24 @@ public class Customer {
     private Integer publicId;
 
     @Column(name = "name")
+    @Pattern(regexp = "^\\p{L}{2,20}$", message = "Customer name must contain max 20 letters")
     private String name;
 
     @Column(name = "last_name")
+    @Pattern(regexp = "^\\p{L}{0,40}$", message = "Customer last name must contain max 40 letters")
     private String lastName;
 
     @Column(name = "patronymic")
+    @Pattern(regexp = "^\\p{L}{0,30}$", message = "Customer patronymic must contain max 30 letters")
     private String patronymic;
 
     @Column(name = "phone_number")
+    @Pattern(regexp = "^\\+375\\s\\(\\d\\d\\)\\s\\d\\d\\d\\-\\d\\d\\-\\d\\d$", message = "Customer phone number " +
+            "must meet format requirements. +375 (11) 111-11-11")
     private String phoneNumber;
 
     @Column(name = "email")
+    @Pattern(regexp = "(^$|^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$)", message = "Email must meet format requirements. abc@gmail.com")
     private String email;
 
     @JsonIgnore
