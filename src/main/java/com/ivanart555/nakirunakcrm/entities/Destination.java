@@ -25,7 +25,7 @@ public class Destination {
     private Integer publicId;
 
     @Column(name = "name")
-    @Pattern(regexp = "(^[А-Я][а-яА-я][а-яА-я\\s]{0,48}$)", message = "Country name must be 50 letters long max and start with capitalized letter")
+    @Pattern(regexp = "^[А-ЯІ][а-я'ЎўІіА-я][а-я'ЎўІіА-я\\s]{0,48}$", message = "Country name must be 50 letters long max and start with capitalized letter")
     private String name;
 
     @Override
