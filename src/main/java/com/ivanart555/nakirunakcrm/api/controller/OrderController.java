@@ -1,6 +1,7 @@
 package com.ivanart555.nakirunakcrm.api.controller;
 
 import com.ivanart555.nakirunakcrm.api.mapper.OrderMapper;
+import com.ivanart555.nakirunakcrm.chatbot.NotificationsTelegramBot;
 import com.ivanart555.nakirunakcrm.entities.Order;
 import com.ivanart555.nakirunakcrm.entities.dto.OrderDto;
 import com.ivanart555.nakirunakcrm.exception.ServiceException;
@@ -9,6 +10,8 @@ import com.ivanart555.nakirunakcrm.services.DestinationService;
 import com.ivanart555.nakirunakcrm.services.OrderService;
 import com.ivanart555.nakirunakcrm.services.OrderStatusService;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.env.Environment;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -16,6 +19,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
+import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
@@ -34,6 +39,8 @@ public class OrderController {
     private final DestinationService destinationService;
     private final OrderStatusService orderStatusService;
     private final OrderMapper orderMapper;
+    private final NotificationsTelegramBot telegramBot;
+    private final Environment env;
 
     @GetMapping()
     public String index(Model model,
@@ -70,11 +77,16 @@ public class OrderController {
 
     @PostMapping()
     public String create(@ModelAttribute("orderDto") OrderDto orderDto)
-            throws ServiceException {
+            throws ServiceException, TelegramApiException {
         Order order = orderMapper.convertToEntity(orderDto);
         orderService.assignPublicId(order);
 
         orderService.save(order);
+
+        telegramBot.execute(SendMessage.builder().chatId(env.getProperty("telegram.bot.chatid")).text("Новая Замова №" + order.getPublicId() + " ад " +
+                order.getTimestamp() + ' ' + "." + order.getCustomer().getName() + ". " + order.getCustomer().getPhoneNumber() +". "+
+                order.getDestination().getName() +".").build());
+
         return REDIRECT_ORDERS;
     }
 
