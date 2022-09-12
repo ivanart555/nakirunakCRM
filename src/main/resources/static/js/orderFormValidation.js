@@ -16,10 +16,10 @@ $().ready(function () {
                         required: true,
                     },
                     comment: {
-                        pattern: "^\\p{L}{0,255}$",
+                        pattern: "(^[а-яА-я\\s]{0,255}$)",
                     },
                     customerComment: {
-                        pattern: "^\\p{L}{0,255}$",
+                        pattern: "(^[а-яА-я\\s]{0,255}$)",
                     }
                 },
                 messages: {
