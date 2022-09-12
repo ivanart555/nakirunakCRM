@@ -1,16 +1,20 @@
 package com.ivanart555.nakirunakcrm.api.rest_controller;
 
 import com.ivanart555.nakirunakcrm.api.mapper.OrderMapper;
+import com.ivanart555.nakirunakcrm.chatbot.NotificationsTelegramBot;
 import com.ivanart555.nakirunakcrm.entities.Order;
 import com.ivanart555.nakirunakcrm.entities.dto.OrderDto;
 import com.ivanart555.nakirunakcrm.services.DestinationService;
 import com.ivanart555.nakirunakcrm.services.OrderService;
 import com.ivanart555.nakirunakcrm.services.OrderStatusService;
 import lombok.AllArgsConstructor;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
+import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 import java.net.URI;
 import java.time.ZoneId;
@@ -26,6 +30,8 @@ public class OrderRestController {
     private final OrderStatusService orderStatusService;
     private final DestinationService destinationService;
     private final OrderMapper orderMapper;
+    private final NotificationsTelegramBot telegramBot;
+    private final Environment env;
 
     @GetMapping
     public List<Order> findAll() {
@@ -38,7 +44,7 @@ public class OrderRestController {
     }
 
     @PostMapping()
-    public ResponseEntity<Object> create(@RequestBody OrderDto orderDto) {
+    public ResponseEntity<Object> create(@RequestBody OrderDto orderDto) throws TelegramApiException {
 
         if(orderDto.getCustomerName() == null) {  //tilda connection property save
             return ResponseEntity.ok().build();
@@ -52,6 +58,11 @@ public class OrderRestController {
         order.setDestination(destinationService.findByName(orderDto.getDestinationName()));
 
         int id = orderService.save(order);
+
+        telegramBot.execute(SendMessage.builder().chatId(env.getProperty("telegram.bot.chatid")).text("Новая Замова №" + order.getPublicId() + " ад " +
+                order.getTimestamp() + ' ' + "." + order.getCustomer().getName() + ". " + order.getCustomer().getPhoneNumber() +". "+
+                order.getDestination().getName() +".").build());
+
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(id).toUri();
         return ResponseEntity.created(uri).build();
     }
