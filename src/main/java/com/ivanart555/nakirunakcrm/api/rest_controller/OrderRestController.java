@@ -19,6 +19,7 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import java.net.URI;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 
@@ -59,8 +60,9 @@ public class OrderRestController {
 
         int id = orderService.save(order);
 
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         telegramBot.execute(SendMessage.builder().chatId(env.getProperty("telegram.bot.chatid")).text("Новая Замова №" + order.getPublicId() + " ад " +
-                order.getTimestamp() + ' ' + "." + order.getCustomer().getName() + ". " + order.getCustomer().getPhoneNumber() +". "+
+                order.getTimestamp().format(formatter) + ' ' + "." + order.getCustomer().getName() + ". " + order.getCustomer().getPhoneNumber() +". "+
                 order.getDestination().getName() +".").build());
 
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(id).toUri();

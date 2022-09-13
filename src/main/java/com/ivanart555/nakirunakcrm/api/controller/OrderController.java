@@ -24,6 +24,7 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -83,8 +84,9 @@ public class OrderController {
 
         orderService.save(order);
 
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         telegramBot.execute(SendMessage.builder().chatId(env.getProperty("telegram.bot.chatid")).text("Новая Замова №" + order.getPublicId() + " ад " +
-                order.getTimestamp() + ' ' + "." + order.getCustomer().getName() + ". " + order.getCustomer().getPhoneNumber() +". "+
+                order.getTimestamp().format(formatter) + ". " + order.getCustomer().getName() + ". " + order.getCustomer().getPhoneNumber() +". "+
                 order.getDestination().getName() +".").build());
 
         return REDIRECT_ORDERS;
