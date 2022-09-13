@@ -48,11 +48,11 @@ public class Order {
     private Customer customer;
 
     @Column(name = "comment")
-    @Pattern(regexp = "^\\p{L}{0,255}$", message = "Comment must contain max 255 letters")
+    @Pattern(regexp = "(^$|^[0-9a-zA-Zа-яА-Я'.,ЎўІі\\s]{0,255}$)", message = "Comment must contain max 255 letters")
     private String comment;
 
     @Column(name = "customer_comment")
-    @Pattern(regexp = "^\\p{L}{0,255}$", message = "Customer comment must contain max 255 letters")
+    @Pattern(regexp = "(^$|^[0-9a-zA-Zа-яА-Я'.,ЎўІі\\s]{0,255}$)", message = "Customer comment must contain max 255 letters")
     private String customerComment;
 
     @Override
