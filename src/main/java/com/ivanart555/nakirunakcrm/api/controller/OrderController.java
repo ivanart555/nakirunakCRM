@@ -86,8 +86,8 @@ public class OrderController {
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         telegramBot.execute(SendMessage.builder().chatId(env.getProperty("telegram.bot.chatid")).text("Новая Замова №" + order.getPublicId() + " ад " +
-                order.getTimestamp().format(formatter) + ". " + order.getCustomer().getName() + ". " + order.getCustomer().getPhoneNumber() +". "+
-                order.getDestination().getName() +".").build());
+                order.getTimestamp().format(formatter) + ' ' + "." + order.getCustomer().getName() + ". " + order.getCustomer().getPhoneNumber() +". "+
+                order.getDestination().getName() +"." + ' ' + order.getCustomerComment()).build());
 
         return REDIRECT_ORDERS;
     }
