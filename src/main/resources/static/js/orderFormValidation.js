@@ -16,10 +16,10 @@ $().ready(function () {
                         required: true,
                     },
                     comment: {
-                        maxlength: 255,
+                        maxlength: 1000,
                     },
                     customerComment: {
-                        maxlength: 255,
+                        maxlength: 1000,
                     }
                 },
                 messages: {
@@ -36,10 +36,10 @@ $().ready(function () {
                         required: "Выберыце, калі ласка, кліента.",
                     },
                     comment: {
-                        maxlength: "Каментар павінны быць даўжынёй да 255 сімвалаў"
+                        maxlength: "Каментар павінны быць даўжынёй да 1000 сімвалаў"
                     },
                     customerComment: {
-                        pattern: "Каментар кліента павінны быць даўжынёй да 255 сімвалаў"
+                        pattern: "Каментар кліента павінны быць даўжынёй да 1000 сімвалаў"
                     }
                 },
 

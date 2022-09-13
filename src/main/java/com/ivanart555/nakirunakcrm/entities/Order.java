@@ -48,11 +48,11 @@ public class Order {
     private Customer customer;
 
     @Column(name = "comment")
-    @Pattern(regexp = "(^$|^[0-9a-zA-Zа-яА-Я'.,-?!ЎўІі\\s]{0,255}$)", message = "Comment must contain max 255 letters")
+    @Pattern(regexp = "^.{0,1000}$", flags = Pattern.Flag.DOTALL, message = "Comment must contain max 1000 symbols")
     private String comment;
 
     @Column(name = "customer_comment")
-    @Pattern(regexp = "(^$|^[0-9a-zA-Zа-яА-Я'.,-?!ЎўІі\\s]{0,255}$)", message = "Customer comment must contain max 255 letters")
+    @Pattern(regexp = "^.{0,1000}$", flags = Pattern.Flag.DOTALL, message = "Customer comment must contain max 1000 symbols")
     private String customerComment;
 
     @Override
