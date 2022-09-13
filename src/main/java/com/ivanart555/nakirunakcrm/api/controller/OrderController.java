@@ -48,7 +48,7 @@ public class OrderController {
                         @RequestParam("page") Optional<Integer> page,
                         @RequestParam("size") Optional<Integer> size) throws ServiceException {
         int currentPage = page.orElse(1);
-        int pageSize = size.orElse(15);
+        int pageSize = size.orElse(10);
 
         Pageable sortedById = PageRequest.of(currentPage - 1, pageSize, Sort.by("publicId"));
         Page<Order> orderPage = orderService.findAll(sortedById);
