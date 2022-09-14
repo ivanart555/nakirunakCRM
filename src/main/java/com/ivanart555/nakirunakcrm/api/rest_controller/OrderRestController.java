@@ -1,6 +1,7 @@
 package com.ivanart555.nakirunakcrm.api.rest_controller;
 
 import com.ivanart555.nakirunakcrm.api.mapper.OrderMapper;
+import com.ivanart555.nakirunakcrm.chatbot.NotificationsMessage;
 import com.ivanart555.nakirunakcrm.chatbot.NotificationsTelegramBot;
 import com.ivanart555.nakirunakcrm.entities.Order;
 import com.ivanart555.nakirunakcrm.entities.dto.OrderDto;
@@ -32,7 +33,7 @@ public class OrderRestController {
     private final DestinationService destinationService;
     private final OrderMapper orderMapper;
     private final NotificationsTelegramBot telegramBot;
-    private final Environment env;
+    private final NotificationsMessage notificationsMessage;
 
     @GetMapping
     public List<Order> findAll() {
@@ -60,11 +61,7 @@ public class OrderRestController {
 
         int id = orderService.save(order);
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-        telegramBot.execute(SendMessage.builder().chatId(env.getProperty("telegram.bot.chatid")).text("Новая Замова №" + order.getPublicId() + " ад " +
-                order.getTimestamp().format(formatter) + System.lineSeparator() + order.getCustomer().getName() +
-                System.lineSeparator() + order.getCustomer().getPhoneNumber() + System.lineSeparator() +
-                order.getDestination().getName() + System.lineSeparator() + order.getCustomerComment()).build());
+        telegramBot.execute(notificationsMessage.generateNotificationsMessage(order));
 
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(id).toUri();
         return ResponseEntity.created(uri).build();

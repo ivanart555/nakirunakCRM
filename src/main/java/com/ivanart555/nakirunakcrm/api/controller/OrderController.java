@@ -1,6 +1,7 @@
 package com.ivanart555.nakirunakcrm.api.controller;
 
 import com.ivanart555.nakirunakcrm.api.mapper.OrderMapper;
+import com.ivanart555.nakirunakcrm.chatbot.NotificationsMessage;
 import com.ivanart555.nakirunakcrm.chatbot.NotificationsTelegramBot;
 import com.ivanart555.nakirunakcrm.entities.Order;
 import com.ivanart555.nakirunakcrm.entities.dto.OrderDto;
@@ -41,7 +42,7 @@ public class OrderController {
     private final OrderStatusService orderStatusService;
     private final OrderMapper orderMapper;
     private final NotificationsTelegramBot telegramBot;
-    private final Environment env;
+    private final NotificationsMessage notificationsMessage;
 
     @GetMapping()
     public String index(Model model,
@@ -84,11 +85,7 @@ public class OrderController {
 
         orderService.save(order);
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-        telegramBot.execute(SendMessage.builder().chatId(env.getProperty("telegram.bot.chatid")).text("Новая Замова №" + order.getPublicId() + " ад " +
-                order.getTimestamp().format(formatter) + System.lineSeparator() + order.getCustomer().getName() +
-                System.lineSeparator() + order.getCustomer().getPhoneNumber() + System.lineSeparator() +
-                order.getDestination().getName() + System.lineSeparator() + order.getCustomerComment()).build());
+        telegramBot.execute(notificationsMessage.generateNotificationsMessage(order));
 
         return REDIRECT_ORDERS;
     }
