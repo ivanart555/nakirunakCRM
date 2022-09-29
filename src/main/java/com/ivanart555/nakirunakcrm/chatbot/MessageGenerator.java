@@ -8,10 +8,11 @@ import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
+import java.util.Optional;
 
 @AllArgsConstructor
 @Component
-public class NotificationsMessage {
+public class MessageGenerator {
     private final Environment env;
 
     public SendMessage generateNotificationsMessage (Order order){
@@ -22,7 +23,7 @@ public class NotificationsMessage {
                 .text("Новая Замова №" +order.getPublicId() + " ад " +
                 order.getTimestamp().format(formatter) + System.lineSeparator() + order.getCustomer().getName() +
                 System.lineSeparator() + order.getCustomer().getPhoneNumber() + System.lineSeparator() +
-                order.getDestination().getName() + System.lineSeparator() + order.getCustomerComment()).build();
+                order.getDestination().getName() + System.lineSeparator() + Optional.ofNullable(order.getCustomerComment()).orElse("")).build();
 
     }
 

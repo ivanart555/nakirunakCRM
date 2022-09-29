@@ -1,7 +1,7 @@
 package com.ivanart555.nakirunakcrm.api.controller;
 
 import com.ivanart555.nakirunakcrm.api.mapper.OrderMapper;
-import com.ivanart555.nakirunakcrm.chatbot.NotificationsMessage;
+import com.ivanart555.nakirunakcrm.chatbot.MessageGenerator;
 import com.ivanart555.nakirunakcrm.chatbot.NotificationsTelegramBot;
 import com.ivanart555.nakirunakcrm.entities.Order;
 import com.ivanart555.nakirunakcrm.entities.dto.OrderDto;
@@ -11,8 +11,6 @@ import com.ivanart555.nakirunakcrm.services.DestinationService;
 import com.ivanart555.nakirunakcrm.services.OrderService;
 import com.ivanart555.nakirunakcrm.services.OrderStatusService;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.env.Environment;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -20,12 +18,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -42,7 +36,7 @@ public class OrderController {
     private final OrderStatusService orderStatusService;
     private final OrderMapper orderMapper;
     private final NotificationsTelegramBot telegramBot;
-    private final NotificationsMessage notificationsMessage;
+    private final MessageGenerator messageGenerator;
 
     @GetMapping()
     public String index(Model model,
@@ -85,7 +79,7 @@ public class OrderController {
 
         orderService.save(order);
 
-        telegramBot.execute(notificationsMessage.generateNotificationsMessage(order));
+        telegramBot.execute(messageGenerator.generateNotificationsMessage(order));
 
         return REDIRECT_ORDERS;
     }

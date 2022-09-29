@@ -1,7 +1,7 @@
 package com.ivanart555.nakirunakcrm.api.rest_controller;
 
 import com.ivanart555.nakirunakcrm.api.mapper.OrderMapper;
-import com.ivanart555.nakirunakcrm.chatbot.NotificationsMessage;
+import com.ivanart555.nakirunakcrm.chatbot.MessageGenerator;
 import com.ivanart555.nakirunakcrm.chatbot.NotificationsTelegramBot;
 import com.ivanart555.nakirunakcrm.entities.Order;
 import com.ivanart555.nakirunakcrm.entities.dto.OrderDto;
@@ -9,18 +9,15 @@ import com.ivanart555.nakirunakcrm.services.DestinationService;
 import com.ivanart555.nakirunakcrm.services.OrderService;
 import com.ivanart555.nakirunakcrm.services.OrderStatusService;
 import lombok.AllArgsConstructor;
-import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 import java.net.URI;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 
@@ -33,7 +30,7 @@ public class OrderRestController {
     private final DestinationService destinationService;
     private final OrderMapper orderMapper;
     private final NotificationsTelegramBot telegramBot;
-    private final NotificationsMessage notificationsMessage;
+    private final MessageGenerator messageGenerator;
 
     @GetMapping
     public List<Order> findAll() {
@@ -61,7 +58,7 @@ public class OrderRestController {
 
         int id = orderService.save(order);
 
-        telegramBot.execute(notificationsMessage.generateNotificationsMessage(order));
+        telegramBot.execute(messageGenerator.generateNotificationsMessage(order));
 
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(id).toUri();
         return ResponseEntity.created(uri).build();
