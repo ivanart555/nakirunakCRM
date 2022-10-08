@@ -95,7 +95,7 @@ public class CustomerServiceImpl implements CustomerService {
 
     private void deleteCustomerOrders(Integer customerId) {
         Set<Order> orders = findById(customerId).getOrders();
-        for (Order order:orders) {
+        for (Order order : orders) {
             orderService.deleteById(order.getId());
         }
     }

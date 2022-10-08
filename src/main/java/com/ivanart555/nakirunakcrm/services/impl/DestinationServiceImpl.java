@@ -1,6 +1,5 @@
 package com.ivanart555.nakirunakcrm.services.impl;
 
-import com.ivanart555.nakirunakcrm.entities.Customer;
 import com.ivanart555.nakirunakcrm.entities.Destination;
 import com.ivanart555.nakirunakcrm.exception.ServiceException;
 import com.ivanart555.nakirunakcrm.repository.DestinationRepository;

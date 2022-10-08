@@ -37,7 +37,9 @@
             <div class="col-1">
                 <button class="btn btn-success btn-sm" data-bs-target="#addModal"
                         data-bs-toggle="modal" type="button">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-square-plus" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-square-plus" width="20"
+                         height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                         stroke-linecap="round" stroke-linejoin="round">
                         <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                         <rect x="4" y="4" width="16" height="16" rx="2"></rect>
                         <line x1="9" y1="12" x2="15" y2="12"></line>
@@ -82,18 +84,24 @@
             <td>
 
                 <div class="btn-group" role="group" aria-label="Actions buttons">
-                    <button class="btn btn-outline-secondary btn-sm" data-bs-toggle="modal" th:attr="data-bs-target='#modalUpdate'+${orderDto.id}"
+                    <button class="btn btn-outline-secondary btn-sm" data-bs-toggle="modal"
+                            th:attr="data-bs-target='#modalUpdate'+${orderDto.id}"
                             type="button">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-pencil" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-pencil" width="20"
+                             height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                             stroke-linecap="round" stroke-linejoin="round">
                             <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                             <path d="M4 20h4l10.5 -10.5a1.5 1.5 0 0 0 -4 -4l-10.5 10.5v4"></path>
                             <line x1="13.5" y1="6.5" x2="17.5" y2="10.5"></line>
                         </svg>
                     </button>
 
-                    <button class="btn btn-outline-danger btn-sm" data-bs-toggle="modal" th:attr="data-bs-target='#modalDelete'+${orderDto.id}"
+                    <button class="btn btn-outline-danger btn-sm" data-bs-toggle="modal"
+                            th:attr="data-bs-target='#modalDelete'+${orderDto.id}"
                             type="button">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-trash" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-trash" width="20"
+                             height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                             stroke-linecap="round" stroke-linejoin="round">
                             <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                             <line x1="4" y1="7" x2="20" y2="7"></line>
                             <line x1="10" y1="11" x2="10" y2="17"></line>
@@ -119,7 +127,8 @@
                                       th:method="PATCH" modelAttribute="orderDto" th:object="${orderDto}">
                                     <div class="mb-3">
                                         <input class="form-control" id="id" name="id" th:value="*{id}" type="hidden">
-                                        <input class="form-control" id="publicId" name="publicId" th:value="*{publicId}" type="hidden">
+                                        <input class="form-control" id="publicId" name="publicId" th:value="*{publicId}"
+                                               type="hidden">
 
                                         <label class="form-label" for="orderStatusId">Статус: </label>
                                         <select class="form-select" id="orderStatusId" th:field="*{orderStatusId}">
@@ -184,15 +193,16 @@
                                         <br>
 
                                         <label class="form-label" for="customerComment">Каментар замоўніка:</label>
-                                        <textarea type="text" class="form-control" id="customerComment" rows="3" name="customerComment"
+                                        <textarea type="text" class="form-control" id="customerComment" rows="3"
+                                                  name="customerComment"
                                                   th:value="*{customerComment}"
                                                   th:text="*{customerComment}"></textarea>
                                         <br>
 
                                         <label class="form-label" for="comment">Каментар:</label>
                                         <textarea type="text" class="form-control" id="comment" rows="3" name="comment"
-                                               th:value="*{comment}"
-                                               th:text="*{comment}"></textarea>
+                                                  th:value="*{comment}"
+                                                  th:text="*{comment}"></textarea>
 
                                     </div>
 
@@ -208,36 +218,36 @@
                     </div>
                 </div>
 
-                                <div class="modal fade text-body" th:attr="id='modalDelete'+${orderDto.id}" tabindex="-1"
-                                     aria-labelledby="modalDelete" aria-hidden="true">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="deleteModal">Увага</h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                        aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-body">
+                <div class="modal fade text-body" th:attr="id='modalDelete'+${orderDto.id}" tabindex="-1"
+                     aria-labelledby="modalDelete" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="deleteModal">Увага</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
 
-                                                <form class="form-horizontal"
-                                                      th:action="@{/orders/delete/{id}(id=${orderDto.id})}" th:method="DELETE">
-                                                    <input id="id" name="id" type="hidden" th:value="${orderDto.id}"/>
-                                                    <div class="form-group">
-                                                        <div class="text-nowrap bd-highlight">
-                                                            <p
-                                                                    th:text="'Выдаліць замову' + ' ' + ${orderDto.publicId} + ' ' + '?'"></p>
-                                                        </div>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыць
-                                                        </button>
-                                                        <button type="submit" class="btn btn-danger">Выдаліць замову</button>
-                                                    </div>
-                                                </form>
-                                            </div>
+                                <form class="form-horizontal"
+                                      th:action="@{/orders/delete/{id}(id=${orderDto.id})}" th:method="DELETE">
+                                    <input id="id" name="id" type="hidden" th:value="${orderDto.id}"/>
+                                    <div class="form-group">
+                                        <div class="text-nowrap bd-highlight">
+                                            <p
+                                                    th:text="'Выдаліць замову' + ' ' + ${orderDto.publicId} + ' ' + '?'"></p>
                                         </div>
                                     </div>
-                                </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыць
+                                        </button>
+                                        <button type="submit" class="btn btn-danger">Выдаліць замову</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </td>
 
         </tr>
@@ -309,7 +319,8 @@
                             <br>
 
                             <label class="form-label" for="customerComment">Каментар замоўніка:</label>
-                            <textarea class="form-control" id="customerComment" rows="3" name="customerComment"></textarea>
+                            <textarea class="form-control" id="customerComment" rows="3"
+                                      name="customerComment"></textarea>
                             <br>
 
                             <label class="form-label" for="comment">Каментар:</label>

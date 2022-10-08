@@ -55,7 +55,7 @@ public class OrderMapper {
         try {
             if (orderDto.getCustomerId() != null) {
                 customer = customerService.findById(orderDto.getCustomerId());
-            } else if(orderDto.getCustomerPhoneNumber() != null) {
+            } else if (orderDto.getCustomerPhoneNumber() != null) {
                 customer = customerService.findByPhoneNumber(orderDto.getCustomerPhoneNumber());
             }
         } catch (ServiceException e) {

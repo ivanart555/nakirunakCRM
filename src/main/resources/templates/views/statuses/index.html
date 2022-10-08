@@ -48,7 +48,8 @@
             </th:block>
 
             <li class="page-item" th:classappend="${!orderStatusPage.hasNext()? 'disabled' : ''}">
-                <a class="page-link" th:href="@{/statuses(size=${orderStatusPage.size}, page=${currentPage + 1})}">Next</a>
+                <a class="page-link"
+                   th:href="@{/statuses(size=${orderStatusPage.size}, page=${currentPage + 1})}">Next</a>
             </li>
         </ul>
     </nav>

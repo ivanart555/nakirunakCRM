@@ -21,7 +21,7 @@ public class Destination {
     @Column(name = "destination_id")
     private Integer id;
 
-    @Column(name="public_id")
+    @Column(name = "public_id")
     private Integer publicId;
 
     @Column(name = "name")

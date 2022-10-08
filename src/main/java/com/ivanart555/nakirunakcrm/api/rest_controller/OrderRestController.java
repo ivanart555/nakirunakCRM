@@ -45,7 +45,7 @@ public class OrderRestController {
     @PostMapping()
     public ResponseEntity<Object> create(@RequestBody OrderDto orderDto) throws TelegramApiException {
 
-        if(orderDto.getCustomerName() == null) {  //tilda connection property save
+        if (orderDto.getCustomerName() == null) {  //tilda connection property save
             return ResponseEntity.ok().build();
         }
 

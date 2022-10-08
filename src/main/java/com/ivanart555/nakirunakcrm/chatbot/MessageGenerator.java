@@ -15,19 +15,17 @@ import java.util.Optional;
 public class MessageGenerator {
     private final Environment env;
 
-    public SendMessage generateNotificationsMessage (Order order){
+    public SendMessage generateNotificationsMessage(Order order) {
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
         return SendMessage.builder().chatId(Objects.requireNonNull(env.getProperty("telegram.bot.chatid")))
-                .text("Новая Замова №" +order.getPublicId() + " ад " +
-                order.getTimestamp().format(formatter) + System.lineSeparator() + order.getCustomer().getName() +
-                System.lineSeparator() + order.getCustomer().getPhoneNumber() + System.lineSeparator() +
-                order.getDestination().getName() + System.lineSeparator() + Optional.ofNullable(order.getCustomerComment()).orElse("")).build();
+                .text("Новая Замова №" + order.getPublicId() + " ад " +
+                        order.getTimestamp().format(formatter) + System.lineSeparator() + order.getCustomer().getName() +
+                        System.lineSeparator() + order.getCustomer().getPhoneNumber() + System.lineSeparator() +
+                        order.getDestination().getName() + System.lineSeparator() + Optional.ofNullable(order.getCustomerComment()).orElse("")).build();
 
     }
-
-
 
 
 }
