@@ -10,4 +10,5 @@ public class NakirunakcrmApplication {
         SpringApplication.run(NakirunakcrmApplication.class, args);
     }
 
+
 }
