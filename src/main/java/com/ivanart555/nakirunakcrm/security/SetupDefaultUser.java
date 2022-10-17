@@ -1,4 +1,4 @@
-package com.ivanart555.nakirunakcrm.config;
+package com.ivanart555.nakirunakcrm.security;
 
 import com.ivanart555.nakirunakcrm.services.auth.UserDetailsService;
 import com.ivanart555.nakirunakcrm.services.auth.UserService;
