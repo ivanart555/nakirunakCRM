@@ -1,7 +1,7 @@
 package com.ivanart555.nakirunakcrm.entities;
 
-import jakarta.persistence.*;
-import jakarta.validation.constraints.Pattern;
+import javax.persistence.*;
+import javax.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

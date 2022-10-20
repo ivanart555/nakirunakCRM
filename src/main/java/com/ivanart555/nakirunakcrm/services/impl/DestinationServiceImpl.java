@@ -4,7 +4,7 @@ import com.ivanart555.nakirunakcrm.entities.Destination;
 import com.ivanart555.nakirunakcrm.exception.ServiceException;
 import com.ivanart555.nakirunakcrm.repository.DestinationRepository;
 import com.ivanart555.nakirunakcrm.services.DestinationService;
-import jakarta.persistence.EntityNotFoundException;
+import javax.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;

@@ -2,7 +2,7 @@ package com.ivanart555.nakirunakcrm.services.auth;
 
 import com.ivanart555.nakirunakcrm.entities.auth.User;
 import com.ivanart555.nakirunakcrm.repository.auth.UserRepository;
-import jakarta.transaction.Transactional;
+import javax.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.AuthenticationException;

@@ -9,7 +9,7 @@ import com.ivanart555.nakirunakcrm.exception.ServiceException;
 import com.ivanart555.nakirunakcrm.services.CustomerService;
 import com.ivanart555.nakirunakcrm.services.DestinationService;
 import com.ivanart555.nakirunakcrm.services.OrderStatusService;
-import jakarta.persistence.EntityNotFoundException;
+import javax.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
